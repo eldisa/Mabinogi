@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://html-color-codes.info/chinese/ -->
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML色彩代码</title>
+
+    <link rel="import" href="head.html">
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="./js/jscolor.js"></script>
+</head>
+<style>
+    #preview{
+        width:200px;
+        height:200px;
+        margin:2px;
+        border:1px solid #ccc;
+    }
+     body {
+         font-family: Arial, Helvetica, Garuda, sans-serif;
+         font-size: 13px; }
+
+    h1 {
+        font-size: 20px;
+        font-weight: normal;
+        margin-bottom: 20px;
+        text-align: center; }
+
+    #previewWrapper {
+        width: 200px;
+        border: 1px solid #ccc; }
+
+    #optionsWrapper {
+        width: 200px;
+        text-align: left;
+        margin-left: 10px; }
+
+    #previewWrapper,
+    #optionsWrapper {
+        float: left; }
+
+    #colorCode {
+        width: 194px;
+        border: none;
+        font-size: 16px;
+        text-align: center; }
+
+    select {
+        width: 200px;
+        margin-bottom: 5px; }
+</style>
+<script>
+    var mode = 4;
+    var c1 = 0;
+    var c2 = 0;
+    var lv = 0;
+
+    $(document).ready(function() {
+        for(var i = 0; i < 259; ++i) {
+            $('<option/>').val(i).html(i + ' - ' + colors[i].name).appendTo('#color1, #color2');
+        }
+
+        $('select').change(function() {
+            parseOptions();
+            localStorage.setItem('mode', mode);
+            localStorage.setItem('color1', c1);
+            localStorage.setItem('color2', c2);
+            localStorage.setItem('level', lv);
+        });
+
+        $('#colorCode').click(function() {
+            $(this).select();
+            var $temp = $("<input>");
+            $("body").append($temp);
+            document.execCommand("copy");
+            $temp.remove();
+        });
+
+        $('#colorReview').click( function (){
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(this).val()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        });
+
+        mode = localStorage.getItem('mode');
+        c1 = localStorage.getItem('color1');
+        c2 = localStorage.getItem('color2');
+        lv = localStorage.getItem('level');
+        $('#color1').val(c1 ? c1 : 0);
+        $('#color2').val(c2 ? c2 : 0);
+        $('#mode').val(mode ? mode : 4);
+        $('#level').val(lv ? lv : 0);
+
+        parseOptions();
+    });
+
+    function parseOptions() {
+        mode = parseInt($('#mode').val());
+        c1 = parseInt($('#color1').val());
+        c2 = parseInt($('#color2').val());
+        lv = parseInt($('#level').val());
+        $('#preview').stop();
+
+        setColorCode();
+
+        if(mode == 1) {
+            $('#preview').css('background', getColor(c1));
+            return;
+        }
+
+        if(mode == 2) {
+            $('#preview').css('background', getColor(c2));
+            return;
+        }
+
+        animate();
+    }
+
+    function animate() {
+        if(mode == 4 || mode == 5) {
+            $('#preview').css('background', getColor(mode==4?c1:c2));
+            $('#preview').animate({
+                backgroundColor: getColor(mode==4?c2:c1)
+            }, getDuration(), animate);
+        }
+        else if(mode == 6) {
+            $('#preview').animate({
+                backgroundColor: getColor(c1)
+            }, getDuration(), function() {
+                $('#preview').animate({
+                    backgroundColor: getColor(c2)
+                }, getDuration(), animate);
+            });
+        }
+        else if(mode == 7) {
+            $('#preview').css('background', getColor(c1));
+            var flickFunc = function() {
+                if(Math.random() < 0.5) {
+                    $('#preview').css('background', getColor(c2));
+                    setTimeout(function() { $('#preview').css('background', getColor(c1)); }, 80);
+                }
+
+                setTimeout(flickFunc, getDuration());
+            };
+
+            setTimeout(flickFunc, getDuration());
+        }
+    }
+
+    function getDuration() {
+        if(mode == 6)
+            return 350 / (lv+1);
+        if(mode == 7)
+            return 100 + ((Math.random() * 600) / (lv+1));
+        else
+            return 500 / (lv+1);
+    }
+
+    function getColor(idx) {
+        return colors[idx].hex.replace('0x', '#');
+    }
+
+    function setColorCode() {
+        $('#colorCode').val(""+mode+lv+'00'+(c2<16?'0':'')+c2.toString(16)+(c1<16?'0':'')+c1.toString(16));
+    }
+
+    $('#colorCode').on('click', function (){
+        console.log("fk");
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(this).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    });
+
+    var colors = {
+        0    : { hex: '0x000000', name: 'Black'               },
+        1    : { hex: '0x002084', name: 'Dark Blue'           },
+        2    : { hex: '0x008221', name: 'Dark Green'          },
+        3    : { hex: '0x0082A5', name: 'Dark Cyan'           },
+        4    : { hex: '0x840C18', name: 'Dark Red'            },
+        5    : { hex: '0x7B1894', name: 'Dark Purple'         },
+        6    : { hex: '0xBD7D21', name: 'Dark Orange'         },
+        7    : { hex: '0xC6C3C6', name: 'Light Gray'          },
+        8    : { hex: '0x393839', name: 'Dark Gray'           },
+        9    : { hex: '0x002CFF', name: 'Blue'                },
+        10   : { hex: '0x10FF63', name: 'Green'               },
+        11   : { hex: '0xFF0000', name: 'Red'                 },
+        12   : { hex: '0xFFFF00', name: 'Yellow'              },
+        13   : { hex: '0xEF49FF', name: 'Purple'              },
+        14   : { hex: '0x29DFFF', name: 'Cyan'                },
+        15   : { hex: '0xFFFFFF', name: 'White'               },
+        16   : { hex: '0xF7EFFF', name: 'Pearly'              },
+        17   : { hex: '0xF7F3DE', name: 'White Yellow'        },
+        18   : { hex: '0xEFE3B5', name: 'Orangish Yellow'     },
+        19   : { hex: '0xFFE3B5', name: 'Light Yellow'        },
+        20   : { hex: '0xFFD7B5', name: 'Yellow'              },
+        21   : { hex: '0xFFC7C6', name: 'Peach'               },
+        22   : { hex: '0xCEAAAD', name: 'Grayish Red'         },
+        23   : { hex: '0xB58A7B', name: 'Coffee Colored'      },
+        24   : { hex: '0xADAAA5', name: 'Earthlike'           },
+        25   : { hex: '0x9C5D42', name: 'Bronzed'             },
+        26   : { hex: '0xC6794A', name: 'Reddish Brown'       },
+        27   : { hex: '0x633C31', name: 'Dark Brown'          },
+        28   : { hex: '0x000000', name: 'Black'               },
+        29   : { hex: '0x211C39', name: 'Blue Black'          },
+        30   : { hex: '0x424563', name: 'Blue Gray'           },
+        31   : { hex: '0x5A4D8C', name: 'Violet'              },
+        32   : { hex: '0x7B8AAD', name: 'Light Blue'          },
+        33   : { hex: '0xADAEC6', name: 'Light Violet'        },
+        34   : { hex: '0xE7E3FF', name: 'Silver Violet'       },
+        35   : { hex: '0xFFF38C', name: 'Blonde'              },
+        36   : { hex: '0xEF9252', name: 'Orange'              },
+        37   : { hex: '0xC67139', name: 'Light Brown'         },
+        38   : { hex: '0xC61400', name: 'Red'                 },
+        39   : { hex: '0x7B2C10', name: 'Brown'               },
+        40   : { hex: '0x000000', name: 'Pure Black'          },
+        41   : { hex: '0x000033', name: 'Shyam Black'         },
+        42   : { hex: '0x000066', name: 'Deep Blue'           },
+        43   : { hex: '0x000099', name: 'Ultra Marine'        },
+        44   : { hex: '0x0000CC', name: 'Goblin Blue'         },
+        45   : { hex: '0x0000FF', name: 'Azurite Blue'        },
+        46   : { hex: '0x003300', name: 'Deep Dark Green'     },
+        47   : { hex: '0x003333', name: 'Deep Dark Turquoise' },
+        48   : { hex: '0x003366', name: 'Deep Dark Blue'      },
+        49   : { hex: '0x003399', name: 'Dark Smalte Blue'    },
+        50   : { hex: '0x0033CC', name: 'Smalte Blue'         },
+        51   : { hex: '0x0033FF', name: 'Blue'                },
+        52   : { hex: '0x006600', name: 'Viridis Green'       },
+        53   : { hex: '0x006633', name: 'Kynnbragg Green'     },
+        54   : { hex: '0x006666', name: 'Dark Turquoise'      },
+        55   : { hex: '0x006699', name: 'Aegiptian Blue'      },
+        56   : { hex: '0x0066CC', name: 'Duke Blue'           },
+        57   : { hex: '0x0066FF', name: 'Sky Blue'            },
+        58   : { hex: '0x009900', name: 'Realm Green'         },
+        59   : { hex: '0x009933', name: 'Vallandry Green'     },
+        60   : { hex: '0x009966', name: 'Green Turquoise'     },
+        61   : { hex: '0x009999', name: 'Turquoise'           },
+        62   : { hex: '0x0099CC', name: 'Bleu de France'      },
+        63   : { hex: '0x0099FF', name: 'Blue'                },
+        64   : { hex: '0x00CC00', name: 'Green'               },
+        65   : { hex: '0x00CC33', name: 'Green'               },
+        66   : { hex: '0x00CC66', name: 'Green'               },
+        67   : { hex: '0x00CC99', name: 'Green Turquoise'     },
+        68   : { hex: '0x00CCCC', name: 'Turquoise'           },
+        69   : { hex: '0x00CCFF', name: 'Deep Sky Blue'       },
+        70   : { hex: '0x00FF00', name: 'Acid Green'          },
+        71   : { hex: '0x00FF33', name: 'Lime Green'          },
+        72   : { hex: '0x00FF66', name: 'Neon Green'          },
+        73   : { hex: '0x00FF99', name: 'Neon Green'          },
+        74   : { hex: '0x00FFCC', name: 'Neon Turquoise'      },
+        75   : { hex: '0x00FFFF', name: 'Aqua'                },
+        76   : { hex: '0x330000', name: 'Ochros Brown'        },
+        77   : { hex: '0x330033', name: 'Dark Grape'          },
+        78   : { hex: '0x330066', name: 'Iris'                },
+        79   : { hex: '0x330099', name: 'Indigo Blue'         },
+        80   : { hex: '0x3300CC', name: 'Sapphire Blue'       },
+        81   : { hex: '0x3300FF', name: 'Blue'                },
+        82   : { hex: '0x333300', name: 'Turndail Green'      },
+        83   : { hex: '0x333333', name: 'Dark Gray'           },
+        84   : { hex: '0x333366', name: 'Dark Violet'         },
+        85   : { hex: '0x333399', name: 'Dark Blue'           },
+        86   : { hex: '0x3333CC', name: 'Blue'                },
+        87   : { hex: '0x3333FF', name: 'Blue'                },
+        88   : { hex: '0x336600', name: 'Forestis Green'      },
+        89   : { hex: '0x336633', name: 'Earth Green'         },
+        90   : { hex: '0x336666', name: 'Malache Green'       },
+        91   : { hex: '0x336699', name: 'Dark Pastel Blue'    },
+        92   : { hex: '0x3366CC', name: 'Cobalt Blue'         },
+        93   : { hex: '0x3366FF', name: 'Royal Blue'          },
+        94   : { hex: '0x339900', name: 'Green'               },
+        95   : { hex: '0x339933', name: 'Emerald Green'       },
+        96   : { hex: '0x339966', name: '?'                   },
+        97   : { hex: '0x339999', name: '?'                   },
+        98   : { hex: '0x3399CC', name: '?'                   },
+        99   : { hex: '0x3399FF', name: 'Bilan Blue'          },
+        100  : { hex: '0x33CC00', name: '?'                   },
+        101  : { hex: '0x33CC33', name: '?'                   },
+        102  : { hex: '0x33CC66', name: '?'                   },
+        103  : { hex: '0x33CC99', name: '?'                   },
+        104  : { hex: '0x33CCCC', name: 'Turquoise Blue'      },
+        105  : { hex: '0x33CCFF', name: '?'                   },
+        106  : { hex: '0x33FF00', name: '?'                   },
+        107  : { hex: '0x33FF33', name: '?'                   },
+        108  : { hex: '0x33FF66', name: '?'                   },
+        109  : { hex: '0x33FF99', name: '?'                   },
+        110  : { hex: '0x33FFCC', name: '?'                   },
+        111  : { hex: '0x33FFFF', name: '?'                   },
+        112  : { hex: '0x660000', name: 'Maedere Red'         },
+        113  : { hex: '0x660033', name: 'Eternium Red'        },
+        114  : { hex: '0x660066', name: 'Prepeace Wine'       },
+        115  : { hex: '0x660099', name: '?'                   },
+        116  : { hex: '0x6600CC', name: 'Adamantium Violet'   },
+        117  : { hex: '0x6600FF', name: '?'                   },
+        118  : { hex: '0x663300', name: 'Ochros Red'          },
+        119  : { hex: '0x663333', name: 'Chocolatl'           },
+        120  : { hex: '0x663366', name: 'Goblin Violet'       },
+        121  : { hex: '0x663399', name: '?'                   },
+        122  : { hex: '0x6633CC', name: '?'                   },
+        123  : { hex: '0x6633FF', name: '?'                   },
+        124  : { hex: '0x666600', name: 'Lowendal Green'      },
+        125  : { hex: '0x666633', name: '?'                   },
+        126  : { hex: '0x666666', name: '?'                   },
+        127  : { hex: '0x666699', name: 'Slate Blue'          },
+        128  : { hex: '0x6666CC', name: 'Eweca Blue'          },
+        129  : { hex: '0x6666FF', name: '?'                   },
+        130  : { hex: '0x669900', name: 'Gras Green'          },
+        131  : { hex: '0x669933', name: 'Verte Greak'         },
+        132  : { hex: '0x669966', name: 'Goblin Green'        },
+        133  : { hex: '0x669999', name: '?'                   },
+        134  : { hex: '0x6699CC', name: 'Steel Blue'          },
+        135  : { hex: '0x6699FF', name: 'Cornflower Blue'     },
+        136  : { hex: '0x66CC00', name: '?'                   },
+        137  : { hex: '0x66CC33', name: '?'                   },
+        138  : { hex: '0x66CC66', name: '?'                   },
+        139  : { hex: '0x66CC99', name: '?'                   },
+        140  : { hex: '0x66CCCC', name: '?'                   },
+        141  : { hex: '0x66CCFF', name: '?'                   },
+        142  : { hex: '0x66FF00', name: '?'                   },
+        143  : { hex: '0x66FF33', name: '?'                   },
+        144  : { hex: '0x66FF66', name: '?'                   },
+        145  : { hex: '0x66FF99', name: '?'                   },
+        146  : { hex: '0x66FFCC', name: 'Aquamarine'          },
+        147  : { hex: '0x66FFFF', name: '?'                   },
+        148  : { hex: '0x990000', name: 'Carmine Red'         },
+        149  : { hex: '0x990033', name: '?'                   },
+        150  : { hex: '0x990066', name: '?'                   },
+        151  : { hex: '0x990099', name: '?'                   },
+        152  : { hex: '0x9900CC', name: '?'                   },
+        153  : { hex: '0x9900FF', name: '?'                   },
+        154  : { hex: '0x993300', name: 'Saddle Brown'        },
+        155  : { hex: '0x993333', name: 'Brick Red'           },
+        156  : { hex: '0x993366', name: '?'                   },
+        157  : { hex: '0x993399', name: '?'                   },
+        158  : { hex: '0x9933CC', name: '?'                   },
+        159  : { hex: '0x9933FF', name: '?'                   },
+        160  : { hex: '0x996600', name: 'Ochros'              },
+        161  : { hex: '0x996633', name: 'Desertum'            },
+        162  : { hex: '0x996666', name: '?'                   },
+        163  : { hex: '0x996699', name: '?'                   },
+        164  : { hex: '0x9966CC', name: '?'                   },
+        165  : { hex: '0x9966FF', name: '?'                   },
+        166  : { hex: '0x999900', name: 'Olive'               },
+        167  : { hex: '0x999933', name: '?'                   },
+        168  : { hex: '0x999966', name: '?'                   },
+        169  : { hex: '0x999999', name: '?'                   },
+        170  : { hex: '0x9999CC', name: '?'                   },
+        171  : { hex: '0x9999FF', name: '?'                   },
+        172  : { hex: '0x99CC00', name: '?'                   },
+        173  : { hex: '0x99CC33', name: '?'                   },
+        174  : { hex: '0x99CC66', name: '?'                   },
+        175  : { hex: '0x99CC99', name: '?'                   },
+        176  : { hex: '0x99CCCC', name: '?'                   },
+        177  : { hex: '0x99CCFF', name: 'Iceberg Blue'        },
+        178  : { hex: '0x99FF00', name: 'Chartreuse Green'    },
+        179  : { hex: '0x99FF33', name: '?'                   },
+        180  : { hex: '0x99FF66', name: '?'                   },
+        181  : { hex: '0x99FF99', name: '?'                   },
+        182  : { hex: '0x99FFCC', name: '?'                   },
+        183  : { hex: '0x99FFFF', name: '?'                   },
+        184  : { hex: '0xCC0000', name: 'Bloody Red'          },
+        185  : { hex: '0xCC0033', name: 'Crimson Red'         },
+        186  : { hex: '0xCC0066', name: '?'                   },
+        187  : { hex: '0xCC0099', name: '?'                   },
+        188  : { hex: '0xCC00CC', name: 'Enndoria Pink'       },
+        189  : { hex: '0xCC00FF', name: '?'                   },
+        190  : { hex: '0xCC3300', name: 'Vermilion Red'       },
+        191  : { hex: '0xCC3333', name: 'Lamoah Hong'         },
+        192  : { hex: '0xCC3366', name: 'Palarua Red'         },
+        193  : { hex: '0xCC3399', name: '?'                   },
+        194  : { hex: '0xCC33CC', name: '?'                   },
+        195  : { hex: '0xCC33FF', name: '?'                   },
+        196  : { hex: '0xCC6600', name: 'Meldeceit Desertum'  },
+        197  : { hex: '0xCC6633', name: 'Glandernos Ochros'   },
+        198  : { hex: '0xCC6666', name: 'Ladeca Red'          },
+        199  : { hex: '0xCC6699', name: 'Meldeceit Red'       },
+        200  : { hex: '0xCC66CC', name: 'Orchid'              },
+        201  : { hex: '0xCC66FF', name: '?'                   },
+        202  : { hex: '0xCC9900', name: 'Meldeceit Yellow'    },
+        203  : { hex: '0xCC9933', name: '?'                   },
+        204  : { hex: '0xCC9966', name: 'Ochros Yellow'       },
+        205  : { hex: '0xCC9999', name: 'Rosy Brown'          },
+        206  : { hex: '0xCC99CC', name: '?'                   },
+        207  : { hex: '0xCC99FF', name: '?'                   },
+        208  : { hex: '0xCCCC00', name: '?'                   },
+        209  : { hex: '0xCCCC33', name: '?'                   },
+        210  : { hex: '0xCCCC66', name: 'Khaki'               },
+        211  : { hex: '0xCCCC99', name: '?'                   },
+        212  : { hex: '0xCCCCCC', name: 'Light Gray'          },
+        213  : { hex: '0xCCCCFF', name: 'Mythril White'       },
+        214  : { hex: '0xCCFF00', name: 'Lemon Yellow'        },
+        215  : { hex: '0xCCFF33', name: '?'                   },
+        216  : { hex: '0xCCFF66', name: '?'                   },
+        217  : { hex: '0xCCFF99', name: '?'                   },
+        218  : { hex: '0xCCFFCC', name: '?'                   },
+        219  : { hex: '0xCCFFFF', name: 'Zilberlandow White'  },
+        220  : { hex: '0xFF0000', name: 'Burning Red'         },
+        221  : { hex: '0xFF0033', name: 'Ruby Red'            },
+        222  : { hex: '0xFF0066', name: 'Meldeceit Sun'       },
+        223  : { hex: '0xFF0099', name: '?'                   },
+        224  : { hex: '0xFF00CC', name: '?'                   },
+        225  : { hex: '0xFF00FF', name: 'Poison Magenta'      },
+        226  : { hex: '0xFF3300', name: 'Lava Red'            },
+        227  : { hex: '0xFF3333', name: 'Forging Sword'       },
+        228  : { hex: '0xFF3366', name: '?'                   },
+        229  : { hex: '0xFF3399', name: '?'                   },
+        230  : { hex: '0xFF33CC', name: '?'                   },
+        231  : { hex: '0xFF33FF', name: 'Fuchsia'             },
+        232  : { hex: '0xFF6600', name: 'Chroma Orange'       },
+        233  : { hex: '0xFF6633', name: 'Rahj Al Ghar Orange' },
+        234  : { hex: '0xFF6666', name: 'Tomato'              },
+        235  : { hex: '0xFF6699', name: 'Apricot Pink'        },
+        236  : { hex: '0xFF66CC', name: 'Hot Pink'            },
+        237  : { hex: '0xFF66FF', name: '?'                   },
+        238  : { hex: '0xFF9900', name: 'Orange'              },
+        239  : { hex: '0xFF9933', name: 'Meldeceit Yellow'    },
+        240  : { hex: '0xFF9966', name: 'Coral Pink'          },
+        241  : { hex: '0xFF9999', name: 'Salmon Pink'         },
+        242  : { hex: '0xFF99CC', name: 'Prill Pink'          },
+        243  : { hex: '0xFF99FF', name: 'Plum Pink'           },
+        244  : { hex: '0xFFCC00', name: 'Imperial Yellow'     },
+        245  : { hex: '0xFFCC33', name: 'Canaria Yellow'      },
+        246  : { hex: '0xFFCC66', name: 'Xanthe Yellow'       },
+        247  : { hex: '0xFFCC99', name: 'Palarua Yellow'      },
+        248  : { hex: '0xFFCCCC', name: 'Misty Rose'          },
+        249  : { hex: '0xFFCCFF', name: '?'                   },
+        250  : { hex: '0xFFFF00', name: 'Chroma Yellow'       },
+        251  : { hex: '0xFFFF33', name: '?'                   },
+        252  : { hex: '0xFFFF66', name: '?'                   },
+        253  : { hex: '0xFFFF99', name: 'Hatchling Yellow'    },
+        254  : { hex: '0xFFFFCC', name: '?'                   },
+        255  : { hex: '0xFFFFFF', name: 'Seraphim White'      },
+        256  : { hex: '0xB5BA9F', name: 'Green Gray'          },
+        257  : { hex: '0xB2591F', name: 'Red Browne'          },
+        258  : { hex: '0x6F5E2E', name: 'Khaki Browne'        },
+        259  : { hex: '0x1E2F41', name: 'Deep Blue'           },
+    }
+</script>
+<body>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="single-color-tab" data-toggle="tab" href="#single-color" role="tab" aria-controls="single-color" aria-selected="true">單色染</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="trans-color-tab" data-toggle="tab" href="#trans-color" role="tab" aria-controls="trans-color" aria-selected="false">閃染</a>
+    </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content" style="margin-top: 20px">
+    <div class="tab-pane active" id="single-color" role="tabpanel" aria-labelledby="single-color-tab">
+
+        <input id="colorReview" value="顏色預覽" class="btn btn-primary" type="button" >
+
+        <button class="jscolor{valueElement:'colorReview', styleElement:'colorReview'} btn btn-outline-primary">
+            點擊以選擇顏色
+        </button>
+    </div>
+    <div class="tab-pane" id="trans-color" role="tabpanel" aria-labelledby="trans-color-tab">
+        <div id="previewWrapper">
+            <div id="preview" style="background: rgb(255, 255, 255);"></div>
+            <input type="text" readonly="true" id="colorCode" value="">
+        </div>
+
+        <div id="optionsWrapper">
+            颜色 1<br>
+            <select id="color1"><option value="0">0 - 黑色</option><option value="1">1 - 深蓝色</option><option value="2">2 - 深绿色</option><option value="3">3 - 深青色</option><option value="4">4 - 暗红色</option><option value="5">5 - 深紫色</option><option value="6">6 - 深橙色</option><option value="7">7 - 浅灰色</option><option value="8">8 - 深灰色</option><option value="9">9 - 蓝色</option><option value="10">10 - 绿色</option><option value="11">11 - 红色</option><option value="12">12 - 黄色</option><option value="13">13 - 紫色</option><option value="14">14 - 青色</option><option value="15">15 - 白色</option><option value="16">16 - Pearly</option><option value="17">17 - White Yellow</option><option value="18">18 - Orangish Yellow</option><option value="19">19 - Light Yellow</option><option value="20">20 - Yellow</option><option value="21">21 - Peach</option><option value="22">22 - Grayish Red</option><option value="23">23 - Coffee Colored</option><option value="24">24 - Earthlike</option><option value="25">25 - Bronzed</option><option value="26">26 - Reddish Brown</option><option value="27">27 - Dark Brown</option><option value="28">28 - Black</option><option value="29">29 - Blue Black</option><option value="30">30 - Blue Gray</option><option value="31">31 - Violet</option><option value="32">32 - Light Blue</option><option value="33">33 - Light Violet</option><option value="34">34 - Silver Violet</option><option value="35">35 - Blonde</option><option value="36">36 - Orange</option><option value="37">37 - Light Brown</option><option value="38">38 - Red</option><option value="39">39 - Brown</option><option value="40">40 - Pure Black</option><option value="41">41 - Shyam Black</option><option value="42">42 - Deep Blue</option><option value="43">43 - Ultra Marine</option><option value="44">44 - Goblin Blue</option><option value="45">45 - Azurite Blue</option><option value="46">46 - Deep Dark Green</option><option value="47">47 - Deep Dark Turquoise</option><option value="48">48 - Deep Dark Blue</option><option value="49">49 - Dark Smalte Blue</option><option value="50">50 - Smalte Blue</option><option value="51">51 - Blue</option><option value="52">52 - Viridis Green</option><option value="53">53 - Kynnbragg Green</option><option value="54">54 - Dark Turquoise</option><option value="55">55 - Aegiptian Blue</option><option value="56">56 - Duke Blue</option><option value="57">57 - Sky Blue</option><option value="58">58 - Realm Green</option><option value="59">59 - Vallandry Green</option><option value="60">60 - Green Turquoise</option><option value="61">61 - Turquoise</option><option value="62">62 - Bleu de France</option><option value="63">63 - Blue</option><option value="64">64 - Green</option><option value="65">65 - Green</option><option value="66">66 - Green</option><option value="67">67 - Green Turquoise</option><option value="68">68 - Turquoise</option><option value="69">69 - Deep Sky Blue</option><option value="70">70 - Acid Green</option><option value="71">71 - Lime Green</option><option value="72">72 - Neon Green</option><option value="73">73 - Neon Green</option><option value="74">74 - Neon Turquoise</option><option value="75">75 - Aqua</option><option value="76">76 - Ochros Brown</option><option value="77">77 - Dark Grape</option><option value="78">78 - Iris</option><option value="79">79 - Indigo Blue</option><option value="80">80 - Sapphire Blue</option><option value="81">81 - Blue</option><option value="82">82 - Turndail Green</option><option value="83">83 - Dark Gray</option><option value="84">84 - Dark Violet</option><option value="85">85 - Dark Blue</option><option value="86">86 - Blue</option><option value="87">87 - Blue</option><option value="88">88 - Forestis Green</option><option value="89">89 - Earth Green</option><option value="90">90 - Malache Green</option><option value="91">91 - Dark Pastel Blue</option><option value="92">92 - Cobalt Blue</option><option value="93">93 - Royal Blue</option><option value="94">94 - Green</option><option value="95">95 - Emerald Green</option><option value="96">96 - ?</option><option value="97">97 - ?</option><option value="98">98 - ?</option><option value="99">99 - Bilan Blue</option><option value="100">100 - ?</option><option value="101">101 - ?</option><option value="102">102 - ?</option><option value="103">103 - ?</option><option value="104">104 - Turquoise Blue</option><option value="105">105 - ?</option><option value="106">106 - ?</option><option value="107">107 - ?</option><option value="108">108 - ?</option><option value="109">109 - ?</option><option value="110">110 - ?</option><option value="111">111 - ?</option><option value="112">112 - Maedere Red</option><option value="113">113 - Eternium Red</option><option value="114">114 - Prepeace Wine</option><option value="115">115 - ?</option><option value="116">116 - Adamantium Violet</option><option value="117">117 - ?</option><option value="118">118 - Ochros Red</option><option value="119">119 - Chocolatl</option><option value="120">120 - Goblin Violet</option><option value="121">121 - ?</option><option value="122">122 - ?</option><option value="123">123 - ?</option><option value="124">124 - Lowendal Green</option><option value="125">125 - ?</option><option value="126">126 - ?</option><option value="127">127 - Slate Blue</option><option value="128">128 - Eweca Blue</option><option value="129">129 - ?</option><option value="130">130 - Gras Green</option><option value="131">131 - Verte Greak</option><option value="132">132 - Goblin Green</option><option value="133">133 - ?</option><option value="134">134 - Steel Blue</option><option value="135">135 - Cornflower Blue</option><option value="136">136 - ?</option><option value="137">137 - ?</option><option value="138">138 - ?</option><option value="139">139 - ?</option><option value="140">140 - ?</option><option value="141">141 - ?</option><option value="142">142 - ?</option><option value="143">143 - ?</option><option value="144">144 - ?</option><option value="145">145 - ?</option><option value="146">146 - Aquamarine</option><option value="147">147 - ?</option><option value="148">148 - Carmine Red</option><option value="149">149 - ?</option><option value="150">150 - ?</option><option value="151">151 - ?</option><option value="152">152 - ?</option><option value="153">153 - ?</option><option value="154">154 - Saddle Brown</option><option value="155">155 - Brick Red</option><option value="156">156 - ?</option><option value="157">157 - ?</option><option value="158">158 - ?</option><option value="159">159 - ?</option><option value="160">160 - Ochros</option><option value="161">161 - Desertum</option><option value="162">162 - ?</option><option value="163">163 - ?</option><option value="164">164 - ?</option><option value="165">165 - ?</option><option value="166">166 - Olive</option><option value="167">167 - ?</option><option value="168">168 - ?</option><option value="169">169 - ?</option><option value="170">170 - ?</option><option value="171">171 - ?</option><option value="172">172 - ?</option><option value="173">173 - ?</option><option value="174">174 - ?</option><option value="175">175 - ?</option><option value="176">176 - ?</option><option value="177">177 - Iceberg Blue</option><option value="178">178 - Chartreuse Green</option><option value="179">179 - ?</option><option value="180">180 - ?</option><option value="181">181 - ?</option><option value="182">182 - ?</option><option value="183">183 - ?</option><option value="184">184 - Bloody Red</option><option value="185">185 - Crimson Red</option><option value="186">186 - ?</option><option value="187">187 - ?</option><option value="188">188 - Enndoria Pink</option><option value="189">189 - ?</option><option value="190">190 - Vermilion Red</option><option value="191">191 - Lamoah Hong</option><option value="192">192 - Palarua Red</option><option value="193">193 - ?</option><option value="194">194 - ?</option><option value="195">195 - ?</option><option value="196">196 - Meldeceit Desertum</option><option value="197">197 - Glandernos Ochros</option><option value="198">198 - Ladeca Red</option><option value="199">199 - Meldeceit Red</option><option value="200">200 - Orchid</option><option value="201">201 - ?</option><option value="202">202 - Meldeceit Yellow</option><option value="203">203 - ?</option><option value="204">204 - Ochros Yellow</option><option value="205">205 - Rosy Brown</option><option value="206">206 - ?</option><option value="207">207 - ?</option><option value="208">208 - ?</option><option value="209">209 - ?</option><option value="210">210 - Khaki</option><option value="211">211 - ?</option><option value="212">212 - Light Gray</option><option value="213">213 - Mythril White</option><option value="214">214 - Lemon Yellow</option><option value="215">215 - ?</option><option value="216">216 - ?</option><option value="217">217 - ?</option><option value="218">218 - ?</option><option value="219">219 - Zilberlandow White</option><option value="220">220 - Burning Red</option><option value="221">221 - Ruby Red</option><option value="222">222 - Meldeceit Sun</option><option value="223">223 - ?</option><option value="224">224 - ?</option><option value="225">225 - Poison Magenta</option><option value="226">226 - Lava Red</option><option value="227">227 - Forging Sword</option><option value="228">228 - ?</option><option value="229">229 - ?</option><option value="230">230 - ?</option><option value="231">231 - Fuchsia</option><option value="232">232 - Chroma Orange</option><option value="233">233 - Rahj Al Ghar Orange</option><option value="234">234 - Tomato</option><option value="235">235 - Apricot Pink</option><option value="236">236 - Hot Pink</option><option value="237">237 - ?</option><option value="238">238 - Orange</option><option value="239">239 - Meldeceit Yellow</option><option value="240">240 - Coral Pink</option><option value="241">241 - Salmon Pink</option><option value="242">242 - Prill Pink</option><option value="243">243 - Plum Pink</option><option value="244">244 - Imperial Yellow</option><option value="245">245 - Canaria Yellow</option><option value="246">246 - Xanthe Yellow</option><option value="247">247 - Palarua Yellow</option><option value="248">248 - Misty Rose</option><option value="249">249 - ?</option><option value="250">250 - Chroma Yellow</option><option value="251">251 - ?</option><option value="252">252 - ?</option><option value="253">253 - Hatchling Yellow</option><option value="254">254 - ?</option><option value="255">255 - 白色六翼天使</option><option value="256">256 - 青灰色</option><option value="257">257 - 布朗红</option><option value="258">258 - 卡其布朗</option><option value="0">0 - Black</option><option value="1">1 - Dark Blue</option><option value="2">2 - Dark Green</option><option value="3">3 - Dark Cyan</option><option value="4">4 - Dark Red</option><option value="5">5 - Dark Purple</option><option value="6">6 - Dark Orange</option><option value="7">7 - Light Gray</option><option value="8">8 - Dark Gray</option><option value="9">9 - Blue</option><option value="10">10 - Green</option><option value="11">11 - Red</option><option value="12">12 - Yellow</option><option value="13">13 - Purple</option><option value="14">14 - Cyan</option><option value="15">15 - White</option><option value="16">16 - Pearly</option><option value="17">17 - White Yellow</option><option value="18">18 - Orangish Yellow</option><option value="19">19 - Light Yellow</option><option value="20">20 - Yellow</option><option value="21">21 - Peach</option><option value="22">22 - Grayish Red</option><option value="23">23 - Coffee Colored</option><option value="24">24 - Earthlike</option><option value="25">25 - Bronzed</option><option value="26">26 - Reddish Brown</option><option value="27">27 - Dark Brown</option><option value="28">28 - Black</option><option value="29">29 - Blue Black</option><option value="30">30 - Blue Gray</option><option value="31">31 - Violet</option><option value="32">32 - Light Blue</option><option value="33">33 - Light Violet</option><option value="34">34 - Silver Violet</option><option value="35">35 - Blonde</option><option value="36">36 - Orange</option><option value="37">37 - Light Brown</option><option value="38">38 - Red</option><option value="39">39 - Brown</option><option value="40">40 - Pure Black</option><option value="41">41 - Shyam Black</option><option value="42">42 - Deep Blue</option><option value="43">43 - Ultra Marine</option><option value="44">44 - Goblin Blue</option><option value="45">45 - Azurite Blue</option><option value="46">46 - Deep Dark Green</option><option value="47">47 - Deep Dark Turquoise</option><option value="48">48 - Deep Dark Blue</option><option value="49">49 - Dark Smalte Blue</option><option value="50">50 - Smalte Blue</option><option value="51">51 - Blue</option><option value="52">52 - Viridis Green</option><option value="53">53 - Kynnbragg Green</option><option value="54">54 - Dark Turquoise</option><option value="55">55 - Aegiptian Blue</option><option value="56">56 - Duke Blue</option><option value="57">57 - Sky Blue</option><option value="58">58 - Realm Green</option><option value="59">59 - Vallandry Green</option><option value="60">60 - Green Turquoise</option><option value="61">61 - Turquoise</option><option value="62">62 - Bleu de France</option><option value="63">63 - Blue</option><option value="64">64 - Green</option><option value="65">65 - Green</option><option value="66">66 - Green</option><option value="67">67 - Green Turquoise</option><option value="68">68 - Turquoise</option><option value="69">69 - Deep Sky Blue</option><option value="70">70 - Acid Green</option><option value="71">71 - Lime Green</option><option value="72">72 - Neon Green</option><option value="73">73 - Neon Green</option><option value="74">74 - Neon Turquoise</option><option value="75">75 - Aqua</option><option value="76">76 - Ochros Brown</option><option value="77">77 - Dark Grape</option><option value="78">78 - Iris</option><option value="79">79 - Indigo Blue</option><option value="80">80 - Sapphire Blue</option><option value="81">81 - Blue</option><option value="82">82 - Turndail Green</option><option value="83">83 - Dark Gray</option><option value="84">84 - Dark Violet</option><option value="85">85 - Dark Blue</option><option value="86">86 - Blue</option><option value="87">87 - Blue</option><option value="88">88 - Forestis Green</option><option value="89">89 - Earth Green</option><option value="90">90 - Malache Green</option><option value="91">91 - Dark Pastel Blue</option><option value="92">92 - Cobalt Blue</option><option value="93">93 - Royal Blue</option><option value="94">94 - Green</option><option value="95">95 - Emerald Green</option><option value="96">96 - ?</option><option value="97">97 - ?</option><option value="98">98 - ?</option><option value="99">99 - Bilan Blue</option><option value="100">100 - ?</option><option value="101">101 - ?</option><option value="102">102 - ?</option><option value="103">103 - ?</option><option value="104">104 - Turquoise Blue</option><option value="105">105 - ?</option><option value="106">106 - ?</option><option value="107">107 - ?</option><option value="108">108 - ?</option><option value="109">109 - ?</option><option value="110">110 - ?</option><option value="111">111 - ?</option><option value="112">112 - Maedere Red</option><option value="113">113 - Eternium Red</option><option value="114">114 - Prepeace Wine</option><option value="115">115 - ?</option><option value="116">116 - Adamantium Violet</option><option value="117">117 - ?</option><option value="118">118 - Ochros Red</option><option value="119">119 - Chocolatl</option><option value="120">120 - Goblin Violet</option><option value="121">121 - ?</option><option value="122">122 - ?</option><option value="123">123 - ?</option><option value="124">124 - Lowendal Green</option><option value="125">125 - ?</option><option value="126">126 - ?</option><option value="127">127 - Slate Blue</option><option value="128">128 - Eweca Blue</option><option value="129">129 - ?</option><option value="130">130 - Gras Green</option><option value="131">131 - Verte Greak</option><option value="132">132 - Goblin Green</option><option value="133">133 - ?</option><option value="134">134 - Steel Blue</option><option value="135">135 - Cornflower Blue</option><option value="136">136 - ?</option><option value="137">137 - ?</option><option value="138">138 - ?</option><option value="139">139 - ?</option><option value="140">140 - ?</option><option value="141">141 - ?</option><option value="142">142 - ?</option><option value="143">143 - ?</option><option value="144">144 - ?</option><option value="145">145 - ?</option><option value="146">146 - Aquamarine</option><option value="147">147 - ?</option><option value="148">148 - Carmine Red</option><option value="149">149 - ?</option><option value="150">150 - ?</option><option value="151">151 - ?</option><option value="152">152 - ?</option><option value="153">153 - ?</option><option value="154">154 - Saddle Brown</option><option value="155">155 - Brick Red</option><option value="156">156 - ?</option><option value="157">157 - ?</option><option value="158">158 - ?</option><option value="159">159 - ?</option><option value="160">160 - Ochros</option><option value="161">161 - Desertum</option><option value="162">162 - ?</option><option value="163">163 - ?</option><option value="164">164 - ?</option><option value="165">165 - ?</option><option value="166">166 - Olive</option><option value="167">167 - ?</option><option value="168">168 - ?</option><option value="169">169 - ?</option><option value="170">170 - ?</option><option value="171">171 - ?</option><option value="172">172 - ?</option><option value="173">173 - ?</option><option value="174">174 - ?</option><option value="175">175 - ?</option><option value="176">176 - ?</option><option value="177">177 - Iceberg Blue</option><option value="178">178 - Chartreuse Green</option><option value="179">179 - ?</option><option value="180">180 - ?</option><option value="181">181 - ?</option><option value="182">182 - ?</option><option value="183">183 - ?</option><option value="184">184 - Bloody Red</option><option value="185">185 - Crimson Red</option><option value="186">186 - ?</option><option value="187">187 - ?</option><option value="188">188 - Enndoria Pink</option><option value="189">189 - ?</option><option value="190">190 - Vermilion Red</option><option value="191">191 - Lamoah Hong</option><option value="192">192 - Palarua Red</option><option value="193">193 - ?</option><option value="194">194 - ?</option><option value="195">195 - ?</option><option value="196">196 - Meldeceit Desertum</option><option value="197">197 - Glandernos Ochros</option><option value="198">198 - Ladeca Red</option><option value="199">199 - Meldeceit Red</option><option value="200">200 - Orchid</option><option value="201">201 - ?</option><option value="202">202 - Meldeceit Yellow</option><option value="203">203 - ?</option><option value="204">204 - Ochros Yellow</option><option value="205">205 - Rosy Brown</option><option value="206">206 - ?</option><option value="207">207 - ?</option><option value="208">208 - ?</option><option value="209">209 - ?</option><option value="210">210 - Khaki</option><option value="211">211 - ?</option><option value="212">212 - Light Gray</option><option value="213">213 - Mythril White</option><option value="214">214 - Lemon Yellow</option><option value="215">215 - ?</option><option value="216">216 - ?</option><option value="217">217 - ?</option><option value="218">218 - ?</option><option value="219">219 - Zilberlandow White</option><option value="220">220 - Burning Red</option><option value="221">221 - Ruby Red</option><option value="222">222 - Meldeceit Sun</option><option value="223">223 - ?</option><option value="224">224 - ?</option><option value="225">225 - Poison Magenta</option><option value="226">226 - Lava Red</option><option value="227">227 - Forging Sword</option><option value="228">228 - ?</option><option value="229">229 - ?</option><option value="230">230 - ?</option><option value="231">231 - Fuchsia</option><option value="232">232 - Chroma Orange</option><option value="233">233 - Rahj Al Ghar Orange</option><option value="234">234 - Tomato</option><option value="235">235 - Apricot Pink</option><option value="236">236 - Hot Pink</option><option value="237">237 - ?</option><option value="238">238 - Orange</option><option value="239">239 - Meldeceit Yellow</option><option value="240">240 - Coral Pink</option><option value="241">241 - Salmon Pink</option><option value="242">242 - Prill Pink</option><option value="243">243 - Plum Pink</option><option value="244">244 - Imperial Yellow</option><option value="245">245 - Canaria Yellow</option><option value="246">246 - Xanthe Yellow</option><option value="247">247 - Palarua Yellow</option><option value="248">248 - Misty Rose</option><option value="249">249 - ?</option><option value="250">250 - Chroma Yellow</option><option value="251">251 - ?</option><option value="252">252 - ?</option><option value="253">253 - Hatchling Yellow</option><option value="254">254 - ?</option><option value="255">255 - Seraphim White</option><option value="256">256 - Green Gray</option><option value="257">257 - Red Browne</option><option value="258">258 - Khaki Browne</option></select><br>
+
+            颜色 2<br>
+            <select id="color2"><option value="0">0 - 黑色</option><option value="1">1 - 深蓝色</option><option value="2">2 - 深绿色</option><option value="3">3 - 深青色</option><option value="4">4 - 暗红色</option><option value="5">5 - 深紫色</option><option value="6">6 - 深橙色</option><option value="7">7 - 浅灰色</option><option value="8">8 - 深灰色</option><option value="9">9 - 蓝色</option><option value="10">10 - 绿色</option><option value="11">11 - 红色</option><option value="12">12 - 黄色</option><option value="13">13 - 紫色</option><option value="14">14 - 青色</option><option value="15">15 - 白色</option><option value="16">16 - Pearly</option><option value="17">17 - White Yellow</option><option value="18">18 - Orangish Yellow</option><option value="19">19 - Light Yellow</option><option value="20">20 - Yellow</option><option value="21">21 - Peach</option><option value="22">22 - Grayish Red</option><option value="23">23 - Coffee Colored</option><option value="24">24 - Earthlike</option><option value="25">25 - Bronzed</option><option value="26">26 - Reddish Brown</option><option value="27">27 - Dark Brown</option><option value="28">28 - Black</option><option value="29">29 - Blue Black</option><option value="30">30 - Blue Gray</option><option value="31">31 - Violet</option><option value="32">32 - Light Blue</option><option value="33">33 - Light Violet</option><option value="34">34 - Silver Violet</option><option value="35">35 - Blonde</option><option value="36">36 - Orange</option><option value="37">37 - Light Brown</option><option value="38">38 - Red</option><option value="39">39 - Brown</option><option value="40">40 - Pure Black</option><option value="41">41 - Shyam Black</option><option value="42">42 - Deep Blue</option><option value="43">43 - Ultra Marine</option><option value="44">44 - Goblin Blue</option><option value="45">45 - Azurite Blue</option><option value="46">46 - Deep Dark Green</option><option value="47">47 - Deep Dark Turquoise</option><option value="48">48 - Deep Dark Blue</option><option value="49">49 - Dark Smalte Blue</option><option value="50">50 - Smalte Blue</option><option value="51">51 - Blue</option><option value="52">52 - Viridis Green</option><option value="53">53 - Kynnbragg Green</option><option value="54">54 - Dark Turquoise</option><option value="55">55 - Aegiptian Blue</option><option value="56">56 - Duke Blue</option><option value="57">57 - Sky Blue</option><option value="58">58 - Realm Green</option><option value="59">59 - Vallandry Green</option><option value="60">60 - Green Turquoise</option><option value="61">61 - Turquoise</option><option value="62">62 - Bleu de France</option><option value="63">63 - Blue</option><option value="64">64 - Green</option><option value="65">65 - Green</option><option value="66">66 - Green</option><option value="67">67 - Green Turquoise</option><option value="68">68 - Turquoise</option><option value="69">69 - Deep Sky Blue</option><option value="70">70 - Acid Green</option><option value="71">71 - Lime Green</option><option value="72">72 - Neon Green</option><option value="73">73 - Neon Green</option><option value="74">74 - Neon Turquoise</option><option value="75">75 - Aqua</option><option value="76">76 - Ochros Brown</option><option value="77">77 - Dark Grape</option><option value="78">78 - Iris</option><option value="79">79 - Indigo Blue</option><option value="80">80 - Sapphire Blue</option><option value="81">81 - Blue</option><option value="82">82 - Turndail Green</option><option value="83">83 - Dark Gray</option><option value="84">84 - Dark Violet</option><option value="85">85 - Dark Blue</option><option value="86">86 - Blue</option><option value="87">87 - Blue</option><option value="88">88 - Forestis Green</option><option value="89">89 - Earth Green</option><option value="90">90 - Malache Green</option><option value="91">91 - Dark Pastel Blue</option><option value="92">92 - Cobalt Blue</option><option value="93">93 - Royal Blue</option><option value="94">94 - Green</option><option value="95">95 - Emerald Green</option><option value="96">96 - ?</option><option value="97">97 - ?</option><option value="98">98 - ?</option><option value="99">99 - Bilan Blue</option><option value="100">100 - ?</option><option value="101">101 - ?</option><option value="102">102 - ?</option><option value="103">103 - ?</option><option value="104">104 - Turquoise Blue</option><option value="105">105 - ?</option><option value="106">106 - ?</option><option value="107">107 - ?</option><option value="108">108 - ?</option><option value="109">109 - ?</option><option value="110">110 - ?</option><option value="111">111 - ?</option><option value="112">112 - Maedere Red</option><option value="113">113 - Eternium Red</option><option value="114">114 - Prepeace Wine</option><option value="115">115 - ?</option><option value="116">116 - Adamantium Violet</option><option value="117">117 - ?</option><option value="118">118 - Ochros Red</option><option value="119">119 - Chocolatl</option><option value="120">120 - Goblin Violet</option><option value="121">121 - ?</option><option value="122">122 - ?</option><option value="123">123 - ?</option><option value="124">124 - Lowendal Green</option><option value="125">125 - ?</option><option value="126">126 - ?</option><option value="127">127 - Slate Blue</option><option value="128">128 - Eweca Blue</option><option value="129">129 - ?</option><option value="130">130 - Gras Green</option><option value="131">131 - Verte Greak</option><option value="132">132 - Goblin Green</option><option value="133">133 - ?</option><option value="134">134 - Steel Blue</option><option value="135">135 - Cornflower Blue</option><option value="136">136 - ?</option><option value="137">137 - ?</option><option value="138">138 - ?</option><option value="139">139 - ?</option><option value="140">140 - ?</option><option value="141">141 - ?</option><option value="142">142 - ?</option><option value="143">143 - ?</option><option value="144">144 - ?</option><option value="145">145 - ?</option><option value="146">146 - Aquamarine</option><option value="147">147 - ?</option><option value="148">148 - Carmine Red</option><option value="149">149 - ?</option><option value="150">150 - ?</option><option value="151">151 - ?</option><option value="152">152 - ?</option><option value="153">153 - ?</option><option value="154">154 - Saddle Brown</option><option value="155">155 - Brick Red</option><option value="156">156 - ?</option><option value="157">157 - ?</option><option value="158">158 - ?</option><option value="159">159 - ?</option><option value="160">160 - Ochros</option><option value="161">161 - Desertum</option><option value="162">162 - ?</option><option value="163">163 - ?</option><option value="164">164 - ?</option><option value="165">165 - ?</option><option value="166">166 - Olive</option><option value="167">167 - ?</option><option value="168">168 - ?</option><option value="169">169 - ?</option><option value="170">170 - ?</option><option value="171">171 - ?</option><option value="172">172 - ?</option><option value="173">173 - ?</option><option value="174">174 - ?</option><option value="175">175 - ?</option><option value="176">176 - ?</option><option value="177">177 - Iceberg Blue</option><option value="178">178 - Chartreuse Green</option><option value="179">179 - ?</option><option value="180">180 - ?</option><option value="181">181 - ?</option><option value="182">182 - ?</option><option value="183">183 - ?</option><option value="184">184 - Bloody Red</option><option value="185">185 - Crimson Red</option><option value="186">186 - ?</option><option value="187">187 - ?</option><option value="188">188 - Enndoria Pink</option><option value="189">189 - ?</option><option value="190">190 - Vermilion Red</option><option value="191">191 - Lamoah Hong</option><option value="192">192 - Palarua Red</option><option value="193">193 - ?</option><option value="194">194 - ?</option><option value="195">195 - ?</option><option value="196">196 - Meldeceit Desertum</option><option value="197">197 - Glandernos Ochros</option><option value="198">198 - Ladeca Red</option><option value="199">199 - Meldeceit Red</option><option value="200">200 - Orchid</option><option value="201">201 - ?</option><option value="202">202 - Meldeceit Yellow</option><option value="203">203 - ?</option><option value="204">204 - Ochros Yellow</option><option value="205">205 - Rosy Brown</option><option value="206">206 - ?</option><option value="207">207 - ?</option><option value="208">208 - ?</option><option value="209">209 - ?</option><option value="210">210 - Khaki</option><option value="211">211 - ?</option><option value="212">212 - Light Gray</option><option value="213">213 - Mythril White</option><option value="214">214 - Lemon Yellow</option><option value="215">215 - ?</option><option value="216">216 - ?</option><option value="217">217 - ?</option><option value="218">218 - ?</option><option value="219">219 - Zilberlandow White</option><option value="220">220 - Burning Red</option><option value="221">221 - Ruby Red</option><option value="222">222 - Meldeceit Sun</option><option value="223">223 - ?</option><option value="224">224 - ?</option><option value="225">225 - Poison Magenta</option><option value="226">226 - Lava Red</option><option value="227">227 - Forging Sword</option><option value="228">228 - ?</option><option value="229">229 - ?</option><option value="230">230 - ?</option><option value="231">231 - Fuchsia</option><option value="232">232 - Chroma Orange</option><option value="233">233 - Rahj Al Ghar Orange</option><option value="234">234 - Tomato</option><option value="235">235 - Apricot Pink</option><option value="236">236 - Hot Pink</option><option value="237">237 - ?</option><option value="238">238 - Orange</option><option value="239">239 - Meldeceit Yellow</option><option value="240">240 - Coral Pink</option><option value="241">241 - Salmon Pink</option><option value="242">242 - Prill Pink</option><option value="243">243 - Plum Pink</option><option value="244">244 - Imperial Yellow</option><option value="245">245 - Canaria Yellow</option><option value="246">246 - Xanthe Yellow</option><option value="247">247 - Palarua Yellow</option><option value="248">248 - Misty Rose</option><option value="249">249 - ?</option><option value="250">250 - Chroma Yellow</option><option value="251">251 - ?</option><option value="252">252 - ?</option><option value="253">253 - Hatchling Yellow</option><option value="254">254 - ?</option><option value="255">255 - 白色六翼天使</option><option value="256">256 - 青灰色</option><option value="257">257 - 布朗红</option><option value="258">258 - 卡其布朗</option><option value="0">0 - Black</option><option value="1">1 - Dark Blue</option><option value="2">2 - Dark Green</option><option value="3">3 - Dark Cyan</option><option value="4">4 - Dark Red</option><option value="5">5 - Dark Purple</option><option value="6">6 - Dark Orange</option><option value="7">7 - Light Gray</option><option value="8">8 - Dark Gray</option><option value="9">9 - Blue</option><option value="10">10 - Green</option><option value="11">11 - Red</option><option value="12">12 - Yellow</option><option value="13">13 - Purple</option><option value="14">14 - Cyan</option><option value="15">15 - White</option><option value="16">16 - Pearly</option><option value="17">17 - White Yellow</option><option value="18">18 - Orangish Yellow</option><option value="19">19 - Light Yellow</option><option value="20">20 - Yellow</option><option value="21">21 - Peach</option><option value="22">22 - Grayish Red</option><option value="23">23 - Coffee Colored</option><option value="24">24 - Earthlike</option><option value="25">25 - Bronzed</option><option value="26">26 - Reddish Brown</option><option value="27">27 - Dark Brown</option><option value="28">28 - Black</option><option value="29">29 - Blue Black</option><option value="30">30 - Blue Gray</option><option value="31">31 - Violet</option><option value="32">32 - Light Blue</option><option value="33">33 - Light Violet</option><option value="34">34 - Silver Violet</option><option value="35">35 - Blonde</option><option value="36">36 - Orange</option><option value="37">37 - Light Brown</option><option value="38">38 - Red</option><option value="39">39 - Brown</option><option value="40">40 - Pure Black</option><option value="41">41 - Shyam Black</option><option value="42">42 - Deep Blue</option><option value="43">43 - Ultra Marine</option><option value="44">44 - Goblin Blue</option><option value="45">45 - Azurite Blue</option><option value="46">46 - Deep Dark Green</option><option value="47">47 - Deep Dark Turquoise</option><option value="48">48 - Deep Dark Blue</option><option value="49">49 - Dark Smalte Blue</option><option value="50">50 - Smalte Blue</option><option value="51">51 - Blue</option><option value="52">52 - Viridis Green</option><option value="53">53 - Kynnbragg Green</option><option value="54">54 - Dark Turquoise</option><option value="55">55 - Aegiptian Blue</option><option value="56">56 - Duke Blue</option><option value="57">57 - Sky Blue</option><option value="58">58 - Realm Green</option><option value="59">59 - Vallandry Green</option><option value="60">60 - Green Turquoise</option><option value="61">61 - Turquoise</option><option value="62">62 - Bleu de France</option><option value="63">63 - Blue</option><option value="64">64 - Green</option><option value="65">65 - Green</option><option value="66">66 - Green</option><option value="67">67 - Green Turquoise</option><option value="68">68 - Turquoise</option><option value="69">69 - Deep Sky Blue</option><option value="70">70 - Acid Green</option><option value="71">71 - Lime Green</option><option value="72">72 - Neon Green</option><option value="73">73 - Neon Green</option><option value="74">74 - Neon Turquoise</option><option value="75">75 - Aqua</option><option value="76">76 - Ochros Brown</option><option value="77">77 - Dark Grape</option><option value="78">78 - Iris</option><option value="79">79 - Indigo Blue</option><option value="80">80 - Sapphire Blue</option><option value="81">81 - Blue</option><option value="82">82 - Turndail Green</option><option value="83">83 - Dark Gray</option><option value="84">84 - Dark Violet</option><option value="85">85 - Dark Blue</option><option value="86">86 - Blue</option><option value="87">87 - Blue</option><option value="88">88 - Forestis Green</option><option value="89">89 - Earth Green</option><option value="90">90 - Malache Green</option><option value="91">91 - Dark Pastel Blue</option><option value="92">92 - Cobalt Blue</option><option value="93">93 - Royal Blue</option><option value="94">94 - Green</option><option value="95">95 - Emerald Green</option><option value="96">96 - ?</option><option value="97">97 - ?</option><option value="98">98 - ?</option><option value="99">99 - Bilan Blue</option><option value="100">100 - ?</option><option value="101">101 - ?</option><option value="102">102 - ?</option><option value="103">103 - ?</option><option value="104">104 - Turquoise Blue</option><option value="105">105 - ?</option><option value="106">106 - ?</option><option value="107">107 - ?</option><option value="108">108 - ?</option><option value="109">109 - ?</option><option value="110">110 - ?</option><option value="111">111 - ?</option><option value="112">112 - Maedere Red</option><option value="113">113 - Eternium Red</option><option value="114">114 - Prepeace Wine</option><option value="115">115 - ?</option><option value="116">116 - Adamantium Violet</option><option value="117">117 - ?</option><option value="118">118 - Ochros Red</option><option value="119">119 - Chocolatl</option><option value="120">120 - Goblin Violet</option><option value="121">121 - ?</option><option value="122">122 - ?</option><option value="123">123 - ?</option><option value="124">124 - Lowendal Green</option><option value="125">125 - ?</option><option value="126">126 - ?</option><option value="127">127 - Slate Blue</option><option value="128">128 - Eweca Blue</option><option value="129">129 - ?</option><option value="130">130 - Gras Green</option><option value="131">131 - Verte Greak</option><option value="132">132 - Goblin Green</option><option value="133">133 - ?</option><option value="134">134 - Steel Blue</option><option value="135">135 - Cornflower Blue</option><option value="136">136 - ?</option><option value="137">137 - ?</option><option value="138">138 - ?</option><option value="139">139 - ?</option><option value="140">140 - ?</option><option value="141">141 - ?</option><option value="142">142 - ?</option><option value="143">143 - ?</option><option value="144">144 - ?</option><option value="145">145 - ?</option><option value="146">146 - Aquamarine</option><option value="147">147 - ?</option><option value="148">148 - Carmine Red</option><option value="149">149 - ?</option><option value="150">150 - ?</option><option value="151">151 - ?</option><option value="152">152 - ?</option><option value="153">153 - ?</option><option value="154">154 - Saddle Brown</option><option value="155">155 - Brick Red</option><option value="156">156 - ?</option><option value="157">157 - ?</option><option value="158">158 - ?</option><option value="159">159 - ?</option><option value="160">160 - Ochros</option><option value="161">161 - Desertum</option><option value="162">162 - ?</option><option value="163">163 - ?</option><option value="164">164 - ?</option><option value="165">165 - ?</option><option value="166">166 - Olive</option><option value="167">167 - ?</option><option value="168">168 - ?</option><option value="169">169 - ?</option><option value="170">170 - ?</option><option value="171">171 - ?</option><option value="172">172 - ?</option><option value="173">173 - ?</option><option value="174">174 - ?</option><option value="175">175 - ?</option><option value="176">176 - ?</option><option value="177">177 - Iceberg Blue</option><option value="178">178 - Chartreuse Green</option><option value="179">179 - ?</option><option value="180">180 - ?</option><option value="181">181 - ?</option><option value="182">182 - ?</option><option value="183">183 - ?</option><option value="184">184 - Bloody Red</option><option value="185">185 - Crimson Red</option><option value="186">186 - ?</option><option value="187">187 - ?</option><option value="188">188 - Enndoria Pink</option><option value="189">189 - ?</option><option value="190">190 - Vermilion Red</option><option value="191">191 - Lamoah Hong</option><option value="192">192 - Palarua Red</option><option value="193">193 - ?</option><option value="194">194 - ?</option><option value="195">195 - ?</option><option value="196">196 - Meldeceit Desertum</option><option value="197">197 - Glandernos Ochros</option><option value="198">198 - Ladeca Red</option><option value="199">199 - Meldeceit Red</option><option value="200">200 - Orchid</option><option value="201">201 - ?</option><option value="202">202 - Meldeceit Yellow</option><option value="203">203 - ?</option><option value="204">204 - Ochros Yellow</option><option value="205">205 - Rosy Brown</option><option value="206">206 - ?</option><option value="207">207 - ?</option><option value="208">208 - ?</option><option value="209">209 - ?</option><option value="210">210 - Khaki</option><option value="211">211 - ?</option><option value="212">212 - Light Gray</option><option value="213">213 - Mythril White</option><option value="214">214 - Lemon Yellow</option><option value="215">215 - ?</option><option value="216">216 - ?</option><option value="217">217 - ?</option><option value="218">218 - ?</option><option value="219">219 - Zilberlandow White</option><option value="220">220 - Burning Red</option><option value="221">221 - Ruby Red</option><option value="222">222 - Meldeceit Sun</option><option value="223">223 - ?</option><option value="224">224 - ?</option><option value="225">225 - Poison Magenta</option><option value="226">226 - Lava Red</option><option value="227">227 - Forging Sword</option><option value="228">228 - ?</option><option value="229">229 - ?</option><option value="230">230 - ?</option><option value="231">231 - Fuchsia</option><option value="232">232 - Chroma Orange</option><option value="233">233 - Rahj Al Ghar Orange</option><option value="234">234 - Tomato</option><option value="235">235 - Apricot Pink</option><option value="236">236 - Hot Pink</option><option value="237">237 - ?</option><option value="238">238 - Orange</option><option value="239">239 - Meldeceit Yellow</option><option value="240">240 - Coral Pink</option><option value="241">241 - Salmon Pink</option><option value="242">242 - Prill Pink</option><option value="243">243 - Plum Pink</option><option value="244">244 - Imperial Yellow</option><option value="245">245 - Canaria Yellow</option><option value="246">246 - Xanthe Yellow</option><option value="247">247 - Palarua Yellow</option><option value="248">248 - Misty Rose</option><option value="249">249 - ?</option><option value="250">250 - Chroma Yellow</option><option value="251">251 - ?</option><option value="252">252 - ?</option><option value="253">253 - Hatchling Yellow</option><option value="254">254 - ?</option><option value="255">255 - Seraphim White</option><option value="256">256 - Green Gray</option><option value="257">257 - Red Browne</option><option value="258">258 - Khaki Browne</option></select><br>
+
+            闪烁模式<br>
+            <select id="mode">
+                <option value="1">固定颜色 1</option>
+                <option value="2">固定颜色 2</option>
+                <option value="4">心跳的悸动 1</option>
+                <option value="5">心跳的脉动 2</option>
+                <option value="6">平稳的渐变</option>
+                <option value="7">闪烁</option>
+            </select>
+
+            速度级别<br>
+            <select id="level">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+
+        <div style="clear:both;"></div>
+    </div>
+    </div>
+</div>
+
+</body>
+</html>
