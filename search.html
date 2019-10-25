@@ -9,9 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" type="text/css">
+    <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" type="text/css">
 </head>
 <style>
     /* Styles for wrapping the search box */
@@ -38,44 +39,20 @@
         pointer-events: none;
         color: #aaa;
     }
+    #search-result{
+        margin-top:60px;
+    }
 </style>
 
 <body>
-<ul class="nav justify-content-center">
-    <li class="nav-item">
-        <a class="nav-link" href="#">公告</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" href="#">ID查詢</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">本服特色</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">系統事項</a>
-    </li>
-</ul>
-<div class="container">
-
-</div>
-<div class="main">
-
-    <h1>
-        洛奇 道具搜尋
-    </h1>
-    <!--
-    <p>使用說明</p>
-    <p>...</p>
-    -->
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="輸入道具名稱或ID以進行搜尋" id="search-btn">
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
-                <i class="fas fa-search"></i>
-            </button>
+<nav class="navbar fixed-top navbar-light bg-light">
+    <div class="container">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="輸入道具名稱或ID以進行搜尋" id="search-btn">
         </div>
     </div>
-</div>
+</nav>
+
 <div id="search-result" class="container">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -105,7 +82,7 @@
 <script type="text/javascript" charset="utf8" src="./js/item-data.js"></script>
 <script>
 
-    $(document).ready( function () {
+    $(document).ready(function () {
         $('#example').DataTable({
             //searching:false, //去掉搜索框
             //bLengthChange:false,//去掉每页多少条框体
@@ -120,22 +97,22 @@
                 "infoEmpty": "No records available",
                 "infoFiltered": "(filtered from _MAX_ total records)"
             },
-            "lengthMenu": [[10, 25, 50,100, -1], [10, 25, 50,100, "All"]],
-            destroy:true, //Cannot reinitialise DataTable,解决重新加载表格内容问题
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题
         });
-    } );
+    });
 
     addData();
 
     var table = $('#example').DataTable();
 
     // #myInput is a <input type="text"> element
-    $('#search-btn').on( 'keyup', function () {
-        table.search( this.value ).draw();
-    } );
+    $('#search-btn').on('keyup', function () {
+        table.search(this.value).draw();
+    });
 
     //點擊並複製ID
-    $('#example tbody').on('click', 'td', function (){
+    $('#example tbody').on('click', 'td', function () {
         var $temp = $("<input>");
         $("body").append($temp);
         $temp.val($(this).text()).select();
