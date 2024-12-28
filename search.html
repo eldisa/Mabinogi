@@ -6,11 +6,11 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8"
-            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+            src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" type="text/css">
 </head>
@@ -58,6 +58,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>類型</th>
             <th>物品名稱</th>
         </tr>
         </thead>
@@ -73,19 +74,24 @@
         <tfoot>
         <tr>
             <th>ID</th>
+            <th>類型</th>
             <th>物品名稱</th>
         </tr>
         </tfoot>
     </table>
 </div>
-</body>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278272397'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278272397%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+<span id="cnzz_stat_icon_1278272397"></span>
+<script src="http://s9.cnzz.com/z_stat.php?id=1278272397&amp;show=pic1" type="text/javascript"></script>
 <script type="text/javascript" charset="utf8" src="./js/item-data.js"></script>
+</body>
+
 <script>
 
     $(document).ready(function () {
         $('#example').DataTable({
             searching:false, //去掉搜索框
-            bLengthChange:false,//去掉每页多少条框体
+            //bLengthChange:false,//去掉每页多少条框体
             "language": {
                 "info": "", // 表格左下角显示的文字
                 "paginate": {
@@ -107,7 +113,8 @@
     var table = $('#example').DataTable();
 
     // #myInput is a <input type="text"> element
-    $('#search-btn').on('keyup', function () {
+    $('#search-btn').on('keyup change', function () {
+        console.log(this.value);
         table.search(this.value).draw();
     });
 
