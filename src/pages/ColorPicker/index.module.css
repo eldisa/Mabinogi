@@ -1,0 +1,18 @@
+.page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.backLink {
+    font-size: 16px;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.main {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}

@@ -1,0 +1,11 @@
+.home {
+    text-align: center;
+    padding: 20px;
+}
+
+.link {
+    font-size: 18px;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
