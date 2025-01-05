@@ -1,4 +1,5 @@
 import colors from "../data/colors";
+import { toHex } from "./utils";
 
 export const getColor = (idx: number) => `#${colors[idx].hex}`;
 
@@ -8,7 +9,11 @@ export const generateColorCode = (
     color1: number,
     color2: number
 ): string => {
-    const c1Hex = color1 < 16 ? `0${color1.toString(16)}` : color1.toString(16);
-    const c2Hex = color2 < 16 ? `0${color2.toString(16)}` : color2.toString(16);
+    if (mode == 1) return `00${colors[color1].hex}`;
+
+    if (mode == 2) return `00${colors[color2].hex}`;
+
+    const c1Hex = toHex(color1);
+    const c2Hex = toHex(color2);
     return `${mode}${level}00${c2Hex}${c1Hex}`;
 };
