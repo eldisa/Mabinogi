@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { Paper, TextField, Stack } from "@mui/material";
 import { useColorAnimation } from "../hooks/useColorAnimation";
-import { getColor } from "../utils/colorUtils";
 
 interface PreviewProps {
     mode: number;
@@ -19,7 +19,7 @@ const Preview: React.FC<PreviewProps> = ({
     colorCode,
     setColorCode,
 }) => {
-    const [background, setBackground] = useState(() => getColor(color1));
+    const [background, setBackground] = useState(() => "#000000");
 
     useColorAnimation({
         mode,
@@ -37,31 +37,27 @@ const Preview: React.FC<PreviewProps> = ({
     };
 
     return (
-        <div>
-            <div
-                id="preview"
-                style={{
-                    width: 200,
-                    height: 200,
-                    background,
-                    border: "1px solid #ccc",
+        <Stack spacing={2} alignItems="center">
+            <Paper
+                elevation={3}
+                sx={{
+                    width: 300,
+                    height: 300,
+                    background: background,
                     transition: mode === 5 ? "background-color 0.3s" : "none",
                 }}
             />
-            <input
-                type="text"
-                id="colorCode"
+            <TextField
                 value={colorCode}
-                readOnly
                 onClick={handleColorCodeClick}
-                style={{
-                    marginTop: "8px",
-                    padding: "4px 8px",
-                    cursor: "pointer",
+                InputProps={{
+                    readOnly: true,
                 }}
-                title="Click to copy color code"
+                fullWidth
+                helperText="Click to copy color code"
+                sx={{ width: 300 }}
             />
-        </div>
+        </Stack>
     );
 };
 

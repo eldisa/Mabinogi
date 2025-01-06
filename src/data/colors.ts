@@ -1,4 +1,9 @@
-const colors = [
+interface Color {
+    hex: string;
+    name?: string;
+}
+
+const colors: Color[] = [
     { hex: "000000", name: "Black" },
     { hex: "002084", name: "Dark Blue" },
     { hex: "008221", name: "Dark Green" },

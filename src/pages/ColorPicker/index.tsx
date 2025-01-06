@@ -1,26 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ColorPicker from "../../components/ColorPicker";
-import Preview from "../../components/Preview";
+import { Stack, Typography, Container } from "@mui/material";
+import { ColorPickerTabs } from "../../components/ColorPickerTabs";
+import { DEFAULTS } from "../../utils/constants";
 import styles from "./index.module.css";
 
 const ColorPickPage: React.FC = () => {
-    const [mode, setMode] = useState(4);
-    const [color1, setColor1] = useState(0);
-    const [color2, setColor2] = useState(10);
-    const [level, setLevel] = useState(0);
+    const [mode, setMode] = useState(DEFAULTS.MODE as number);
+    const [color1, setColor1] = useState(DEFAULTS.COLOR_1 as number);
+    const [color2, setColor2] = useState(DEFAULTS.COLOR_2 as number);
+    const [level, setLevel] = useState(DEFAULTS.LEVEL as number);
     const [colorCode, setColorCode] = useState("");
+    const [showColorCards, setShowColorCards] = useState(true);
 
     return (
-        <div className={styles.page}>
-            <header>
-                <Link to="/" className={styles.backLink}>
-                    返回主頁
-                </Link>
-                <h1>顏色選擇頁面</h1>
-            </header>
-            <main className={styles.main}>
-                <ColorPicker
+        <Container maxWidth="lg" className={styles.page}>
+            <Stack spacing={3}>
+                <header>
+                    <Link to="/" className={styles.backLink}>
+                        返回首頁
+                    </Link>
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        顏色選擇頁面
+                    </Typography>
+                </header>
+                <ColorPickerTabs
+                    showColorCards={showColorCards}
+                    onShowColorCardsChange={setShowColorCards}
                     color1={color1}
                     color2={color2}
                     mode={mode}
@@ -29,17 +35,11 @@ const ColorPickPage: React.FC = () => {
                     setColor2={setColor2}
                     setMode={setMode}
                     setLevel={setLevel}
-                />
-                <Preview
-                    mode={mode}
-                    color1={color1}
-                    color2={color2}
-                    level={level}
                     colorCode={colorCode}
                     setColorCode={setColorCode}
                 />
-            </main>
-        </div>
+            </Stack>
+        </Container>
     );
 };
 
