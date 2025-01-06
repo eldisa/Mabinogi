@@ -5,10 +5,9 @@ import ColorPickPage from "./pages/ColorPicker/";
 
 const App: React.FC = () => {
     return (
-        <Router>
+        <Router basename="/Mabinogi">
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                123
                 <Route path="/color-pick" element={<ColorPickPage />} />
             </Routes>
         </Router>
