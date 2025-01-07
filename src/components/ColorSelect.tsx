@@ -3,7 +3,6 @@ import { Autocomplete, TextField } from "@mui/material";
 import colors from "../data/colors";
 
 interface ColorOption {
-    label: string;
     value: number;
     hex: string;
 }
@@ -36,37 +35,36 @@ const ColorSelect: React.FC<ColorSelectProps> = ({
                 }
             }}
             options={colorOptions}
-            getOptionLabel={(option) => option.label}
+            getOptionLabel={(option) => option.hex}
             isOptionEqualToValue={(option, value) =>
                 option.value === value.value
             }
             renderInput={(params) => (
                 <TextField {...params} label={label} sx={{ width: "300px" }} />
             )}
-            renderOption={(props, option) => {
-                const { key, ...otherProps } = props;
-                return (
-                    <li
-                        key={option.value}
-                        {...props}
+            renderOption={(
+                props: React.HTMLAttributes<HTMLLIElement>,
+                option
+            ) => (
+                <li
+                    {...props}
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                    }}
+                >
+                    <div
                         style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
+                            width: "20px",
+                            height: "20px",
+                            backgroundColor: `#${option.hex}`,
+                            border: "1px solid #ccc",
                         }}
-                    >
-                        <div
-                            style={{
-                                width: "20px",
-                                height: "20px",
-                                backgroundColor: `#${option.hex}`,
-                                border: "1px solid #ccc",
-                            }}
-                        />
-                        {option.label}
-                    </li>
-                );
-            }}
+                    />
+                    {option.hex}
+                </li>
+            )}
         />
     );
 };
