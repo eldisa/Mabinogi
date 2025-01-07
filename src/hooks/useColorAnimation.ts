@@ -96,8 +96,7 @@ export const useColorAnimation = ({
             }
             lastTimeRef.current = null;
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [mode, color1Hex, color2Hex, level]);
+    }, [mode, color1Hex, color2Hex, level, animate]);
 
     return color1Hex;
 };
