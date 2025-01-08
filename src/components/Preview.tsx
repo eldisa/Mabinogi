@@ -44,7 +44,7 @@ const Preview: React.FC<PreviewProps> = ({
                     width: 300,
                     height: 300,
                     background: background,
-                    transition: mode === 5 ? "background-color 0.3s" : "none",
+                    // transition: mode === 5 ? "background-color 0.3s" : "none",
                 }}
             />
             <TextField

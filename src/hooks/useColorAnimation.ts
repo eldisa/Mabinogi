@@ -1,5 +1,9 @@
 import { useEffect, useRef } from "react";
-import { getColor, generateColorCode } from "../utils/colorUtils";
+import {
+    getColor,
+    generateColorArray,
+    generateColorCode,
+} from "../utils/colorUtils";
 
 interface AnimationConfig {
     mode: number;
@@ -20,14 +24,26 @@ export const useColorAnimation = ({
 }: AnimationConfig) => {
     const animationRef = useRef<number | null>(null);
     const lastTimeRef = useRef<number | null>(null);
+    const currentIndexRef = useRef(0);
 
     const color1Hex = getColor(color1);
     const color2Hex = getColor(color2);
 
+    // Generate and update color code whenever relevant props change
     useEffect(() => {
         const newColorCode = generateColorCode(mode, level, color1, color2);
         setColorCode(newColorCode);
     }, [mode, level, color1, color2, setColorCode]);
+
+    useEffect(() => {
+        if (mode === 4 || mode === 5) {
+            currentIndexRef.current = 0;
+            const colorArray = generateColorArray(mode, 0, color1, color2);
+            if (colorArray.length > 0) {
+                setBackground(`#${colorArray[0]}`);
+            }
+        }
+    }, [mode, color1, color2]);
 
     const handleColorChange = () => {
         switch (mode) {
@@ -38,7 +54,13 @@ export const useColorAnimation = ({
                 setBackground(color2Hex);
                 break;
             case 4:
-            case 5:
+            case 5: {
+                const colorArray = generateColorArray(mode, 0, color1, color2);
+                currentIndexRef.current =
+                    (currentIndexRef.current + 1) % colorArray.length;
+                setBackground(`#${colorArray[currentIndexRef.current]}`);
+                break;
+            }
             case 6:
                 setBackground((prev) =>
                     prev === color1Hex ? color2Hex : color1Hex
@@ -95,8 +117,9 @@ export const useColorAnimation = ({
                 cancelAnimationFrame(animationRef.current);
             }
             lastTimeRef.current = null;
+            currentIndexRef.current = 0;
         };
-    }, [mode, color1Hex, color2Hex, level, animate]);
+    }, [mode, color1Hex, color2Hex, level]);
 
     return color1Hex;
 };

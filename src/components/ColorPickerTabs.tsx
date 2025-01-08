@@ -11,10 +11,12 @@ interface ColorPickerTabsProps {
     color2: number;
     mode: number;
     level: number;
+    startIndex: number;
     setColor1: (value: number) => void;
     setColor2: (value: number) => void;
     setMode: (value: number) => void;
     setLevel: (value: number) => void;
+    setStartIndex: (value: number) => void;
     colorCode: string;
     setColorCode: (value: string) => void;
 }

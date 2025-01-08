@@ -8,10 +8,12 @@ interface ColorPickerProps {
     color2: number;
     mode: number;
     level: number;
+    startIndex: number;
     setColor1: (value: number) => void;
     setColor2: (value: number) => void;
     setMode: (value: number) => void;
     setLevel: (value: number) => void;
+    setStartIndex: (value: number) => void;
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = ({
@@ -19,10 +21,12 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
     color2,
     mode,
     level,
+    startIndex,
     setColor1,
     setColor2,
     setMode,
     setLevel,
+    setStartIndex,
 }) => {
     return (
         <Stack spacing={3} width="300px">
@@ -37,6 +41,18 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
                     max={9}
                     step={1}
                     onChange={(_, value) => setLevel(value as number)}
+                    marks
+                    sx={{ width: "300px" }}
+                />
+            </div>
+            <div>
+                <Typography gutterBottom>起始索引: {startIndex}</Typography>
+                <Slider
+                    value={startIndex}
+                    min={0}
+                    max={15}
+                    step={1}
+                    onChange={(_, value) => setStartIndex(value as number)}
                     marks
                     sx={{ width: "300px" }}
                 />
