@@ -2,9 +2,23 @@ import React, { useEffect, useState } from "react";
 import { generateColorArray } from "../utils/colorUtils";
 import { DEFAULTS } from "../utils/constants";
 
-export const ColorArrayDisplay: React.FC = () => {
+const { MODE, COLOR_1, COLOR_2 } = DEFAULTS;
+
+interface ColorArrayDisplayParam {
+    mode: number;
+    shiftOutside: number;
+    color1: number;
+    color2: number;
+}
+
+export const ColorArrayDisplay: React.FC<ColorArrayDisplayParam> = ({
+    mode = MODE,
+    shiftOutside = 0,
+    color1 = COLOR_1,
+    color2 = COLOR_2,
+}) => {
     const [colorArray, setColorArray] = useState<string[]>([]);
-    const [shift, setShift] = useState(0);
+    const [shift, setShift] = useState(shiftOutside);
 
     useEffect(() => {
         const interval = setInterval(
@@ -18,12 +32,7 @@ export const ColorArrayDisplay: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        const array = generateColorArray(
-            DEFAULTS.MODE,
-            shift,
-            DEFAULTS.COLOR_1,
-            DEFAULTS.COLOR_2
-        );
+        const array = generateColorArray(mode, shift, color1, color2);
         setColorArray(array);
     }, [shift]);
 

@@ -3,6 +3,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import colors from "../data/colors";
 
 interface ColorOption {
+    label: string;
     value: number;
     hex: string;
 }
@@ -48,6 +49,7 @@ const ColorSelect: React.FC<ColorSelectProps> = ({
             ) => (
                 <li
                     {...props}
+                    key={option.hex}
                     style={{
                         display: "flex",
                         alignItems: "center",
