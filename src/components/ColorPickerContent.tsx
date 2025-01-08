@@ -25,7 +25,7 @@ export const ColorPickerContent: React.FC<ColorPickerContentProps> = (
 ) => {
     const [showColorBlock, setShowColorBlock] = useState(true);
     const { mode } = props;
-    const shift = parseInt(props.colorCode.charAt(1)); //get shift from colorCode[1]
+    //const shift = parseInt(props.colorCode.charAt(1)); //get shift from colorCode[1]
     const { FIXED_COLOR_1, FIXED_COLOR_2 } = ANIMATION_MODES;
     const isShinyMode = mode !== FIXED_COLOR_1 && mode !== FIXED_COLOR_2;
     return (
@@ -70,14 +70,7 @@ export const ColorPickerContent: React.FC<ColorPickerContentProps> = (
                         }
                         label="顯示顏色塊"
                     />
-                    {showColorBlock && (
-                        <ColorArrayDisplay
-                            color1={props.color1}
-                            color2={props.color2}
-                            mode={props.mode}
-                            shiftOutside={shift}
-                        />
-                    )}
+                    {showColorBlock && <ColorArrayDisplay />}
                 </Stack>
             )}
         </Stack>
