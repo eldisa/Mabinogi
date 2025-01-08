@@ -41,9 +41,6 @@ const colors: Color[] = [
         hex: "FF0000",
     },
     {
-        hex: "FFFF00",
-    },
-    {
         hex: "EF49FF",
     },
     {
@@ -89,9 +86,6 @@ const colors: Color[] = [
         hex: "633C31",
     },
     {
-        hex: "000000",
-    },
-    {
         hex: "211C39",
     },
     {
@@ -123,9 +117,6 @@ const colors: Color[] = [
     },
     {
         hex: "7B2C10",
-    },
-    {
-        hex: "000000",
     },
     {
         hex: "000033",
@@ -665,9 +656,6 @@ const colors: Color[] = [
         hex: "CCFFFF",
     },
     {
-        hex: "FF0000",
-    },
-    {
         hex: "FF0033",
     },
     {
@@ -768,9 +756,6 @@ const colors: Color[] = [
     },
     {
         hex: "FFFFCC",
-    },
-    {
-        hex: "FFFFFF",
     },
     {
         hex: "B5BA9F",
