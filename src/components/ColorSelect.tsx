@@ -9,7 +9,7 @@ interface ColorOption {
 }
 
 const colorOptions: ColorOption[] = colors.map((color, index) => ({
-    label: color.name || `Color ${index}`,
+    label: `${color.id}-#${color.hex}`,
     value: index,
     hex: color.hex,
 }));
@@ -49,7 +49,7 @@ const ColorSelect: React.FC<ColorSelectProps> = ({
             ) => (
                 <li
                     {...props}
-                    key={option.hex}
+                    key={option.label}
                     style={{
                         display: "flex",
                         alignItems: "center",
@@ -64,7 +64,7 @@ const ColorSelect: React.FC<ColorSelectProps> = ({
                             border: "1px solid #ccc",
                         }}
                     />
-                    {option.hex}
+                    {option.label}
                 </li>
             )}
         />

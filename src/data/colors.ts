@@ -1,773 +1,1032 @@
 interface Color {
+    id: string;
     hex: string;
-    name?: string;
 }
 
 const colors: Color[] = [
     {
-        hex: "000000",
+        id: "0",
+        hex: "#000000",
     },
     {
-        hex: "002084",
+        id: "1",
+        hex: "#002084",
     },
     {
-        hex: "008221",
+        id: "2",
+        hex: "#008221",
     },
     {
-        hex: "0082A5",
+        id: "3",
+        hex: "#0082A5",
     },
     {
-        hex: "840C18",
+        id: "4",
+        hex: "#840C18",
     },
     {
-        hex: "7B1894",
+        id: "5",
+        hex: "#7B1894",
     },
     {
-        hex: "BD7D21",
+        id: "6",
+        hex: "#BD7D21",
     },
     {
-        hex: "C6C3C6",
+        id: "7",
+        hex: "#C6C3C6",
     },
     {
-        hex: "393839",
+        id: "8",
+        hex: "#393839",
     },
     {
-        hex: "002CFF",
+        id: "9",
+        hex: "#002CFF",
     },
     {
-        hex: "10FF63",
+        id: "a",
+        hex: "#10FF63",
     },
     {
-        hex: "FF0000",
+        id: "b",
+        hex: "#FF0000",
     },
     {
-        hex: "EF49FF",
+        id: "c",
+        hex: "#FFFF00",
     },
     {
-        hex: "29DFFF",
+        id: "d",
+        hex: "#EF49FF",
     },
     {
-        hex: "FFFFFF",
+        id: "e",
+        hex: "#29DFFF",
     },
     {
-        hex: "F7EFFF",
+        id: "f",
+        hex: "#FFFFFF",
     },
     {
-        hex: "F7F3DE",
+        id: "10",
+        hex: "#F7EFFF",
     },
     {
-        hex: "EFE3B5",
+        id: "11",
+        hex: "#F7F3DE",
     },
     {
-        hex: "FFE3B5",
+        id: "12",
+        hex: "#EFE3B5",
     },
     {
-        hex: "FFD7B5",
+        id: "13",
+        hex: "#FFE3B5",
     },
     {
-        hex: "FFC7C6",
+        id: "14",
+        hex: "#FFD7B5",
     },
     {
-        hex: "CEAAAD",
+        id: "15",
+        hex: "#FFC7C6",
     },
     {
-        hex: "B58A7B",
+        id: "16",
+        hex: "#CEAAAD",
     },
     {
-        hex: "ADAAA5",
+        id: "17",
+        hex: "#B58A7B",
     },
     {
-        hex: "9C5D42",
+        id: "18",
+        hex: "#ADAAA5",
     },
     {
-        hex: "C6794A",
+        id: "19",
+        hex: "#9C5D42",
     },
     {
-        hex: "633C31",
+        id: "1a",
+        hex: "#C6794A",
     },
     {
-        hex: "211C39",
+        id: "1b",
+        hex: "#633C31",
     },
     {
-        hex: "424563",
+        id: "1c",
+        hex: "#000000",
     },
     {
-        hex: "5A4D8C",
+        id: "1d",
+        hex: "#211C39",
     },
     {
-        hex: "7B8AAD",
+        id: "1e",
+        hex: "#424563",
     },
     {
-        hex: "ADAEC6",
+        id: "1f",
+        hex: "#5A4D8C",
     },
     {
-        hex: "E7E3FF",
+        id: "20",
+        hex: "#7B8AAD",
     },
     {
-        hex: "FFF38C",
+        id: "21",
+        hex: "#ADAEC6",
     },
     {
-        hex: "EF9252",
+        id: "22",
+        hex: "#E7E3FF",
     },
     {
-        hex: "C67139",
+        id: "23",
+        hex: "#FFF38C",
     },
     {
-        hex: "C61400",
+        id: "24",
+        hex: "#EF9252",
     },
     {
-        hex: "7B2C10",
+        id: "25",
+        hex: "#C67139",
     },
     {
-        hex: "000033",
+        id: "26",
+        hex: "#C61400",
     },
     {
-        hex: "000066",
+        id: "27",
+        hex: "#7B2C10",
     },
     {
-        hex: "000099",
+        id: "28",
+        hex: "#000000",
     },
     {
-        hex: "0000CC",
+        id: "29",
+        hex: "#000033",
     },
     {
-        hex: "0000FF",
+        id: "2a",
+        hex: "#000066",
     },
     {
-        hex: "003300",
+        id: "2b",
+        hex: "#000099",
     },
     {
-        hex: "003333",
+        id: "2c",
+        hex: "#0000CC",
     },
     {
-        hex: "003366",
+        id: "2d",
+        hex: "#0000FF",
     },
     {
-        hex: "003399",
+        id: "2e",
+        hex: "#003300",
     },
     {
-        hex: "0033CC",
+        id: "2f",
+        hex: "#003333",
     },
     {
-        hex: "0033FF",
+        id: "30",
+        hex: "#003366",
     },
     {
-        hex: "006600",
+        id: "31",
+        hex: "#003399",
     },
     {
-        hex: "006633",
+        id: "32",
+        hex: "#0033CC",
     },
     {
-        hex: "006666",
+        id: "33",
+        hex: "#0033FF",
     },
     {
-        hex: "006699",
+        id: "34",
+        hex: "#006600",
     },
     {
-        hex: "0066CC",
+        id: "35",
+        hex: "#006633",
     },
     {
-        hex: "0066FF",
+        id: "36",
+        hex: "#006666",
     },
     {
-        hex: "009900",
+        id: "37",
+        hex: "#006699",
     },
     {
-        hex: "009933",
+        id: "38",
+        hex: "#0066CC",
     },
     {
-        hex: "009966",
+        id: "39",
+        hex: "#0066FF",
     },
     {
-        hex: "009999",
+        id: "3a",
+        hex: "#009900",
     },
     {
-        hex: "0099CC",
+        id: "3b",
+        hex: "#009933",
     },
     {
-        hex: "0099FF",
+        id: "3c",
+        hex: "#009966",
     },
     {
-        hex: "00CC00",
+        id: "3d",
+        hex: "#009999",
     },
     {
-        hex: "00CC33",
+        id: "3e",
+        hex: "#0099CC",
     },
     {
-        hex: "00CC66",
+        id: "3f",
+        hex: "#0099FF",
     },
     {
-        hex: "00CC99",
+        id: "40",
+        hex: "#00CC00",
     },
     {
-        hex: "00CCCC",
+        id: "41",
+        hex: "#00CC33",
     },
     {
-        hex: "00CCFF",
+        id: "42",
+        hex: "#00CC66",
     },
     {
-        hex: "00FF00",
+        id: "43",
+        hex: "#00CC99",
     },
     {
-        hex: "00FF33",
+        id: "44",
+        hex: "#00CCCC",
     },
     {
-        hex: "00FF66",
+        id: "45",
+        hex: "#00CCFF",
     },
     {
-        hex: "00FF99",
+        id: "46",
+        hex: "#00FF00",
     },
     {
-        hex: "00FFCC",
+        id: "47",
+        hex: "#00FF33",
     },
     {
-        hex: "00FFFF",
+        id: "48",
+        hex: "#00FF66",
     },
     {
-        hex: "330000",
+        id: "49",
+        hex: "#00FF99",
     },
     {
-        hex: "330033",
+        id: "4a",
+        hex: "#00FFCC",
     },
     {
-        hex: "330066",
+        id: "4b",
+        hex: "#00FFFF",
     },
     {
-        hex: "330099",
+        id: "4c",
+        hex: "#330000",
     },
     {
-        hex: "3300CC",
+        id: "4d",
+        hex: "#330033",
     },
     {
-        hex: "3300FF",
+        id: "4e",
+        hex: "#330066",
     },
     {
-        hex: "333300",
+        id: "4f",
+        hex: "#330099",
     },
     {
-        hex: "333333",
+        id: "50",
+        hex: "#3300CC",
     },
     {
-        hex: "333366",
+        id: "51",
+        hex: "#3300FF",
     },
     {
-        hex: "333399",
+        id: "52",
+        hex: "#333300",
     },
     {
-        hex: "3333CC",
+        id: "53",
+        hex: "#333333",
     },
     {
-        hex: "3333FF",
+        id: "54",
+        hex: "#333366",
     },
     {
-        hex: "336600",
+        id: "55",
+        hex: "#333399",
     },
     {
-        hex: "336633",
+        id: "56",
+        hex: "#3333CC",
     },
     {
-        hex: "336666",
+        id: "57",
+        hex: "#3333FF",
     },
     {
-        hex: "336699",
+        id: "58",
+        hex: "#336600",
     },
     {
-        hex: "3366CC",
+        id: "59",
+        hex: "#336633",
     },
     {
-        hex: "3366FF",
+        id: "5a",
+        hex: "#336666",
     },
     {
-        hex: "339900",
+        id: "5b",
+        hex: "#336699",
     },
     {
-        hex: "339933",
+        id: "5c",
+        hex: "#3366CC",
     },
     {
-        hex: "339966",
+        id: "5d",
+        hex: "#3366FF",
     },
     {
-        hex: "339999",
+        id: "5e",
+        hex: "#339900",
     },
     {
-        hex: "3399CC",
+        id: "5f",
+        hex: "#339933",
     },
     {
-        hex: "3399FF",
+        id: "60",
+        hex: "#339966",
     },
     {
-        hex: "33CC00",
+        id: "61",
+        hex: "#339999",
     },
     {
-        hex: "33CC33",
+        id: "62",
+        hex: "#3399CC",
     },
     {
-        hex: "33CC66",
+        id: "63",
+        hex: "#3399FF",
     },
     {
-        hex: "33CC99",
+        id: "64",
+        hex: "#33CC00",
     },
     {
-        hex: "33CCCC",
+        id: "65",
+        hex: "#33CC33",
     },
     {
-        hex: "33CCFF",
+        id: "66",
+        hex: "#33CC66",
     },
     {
-        hex: "33FF00",
+        id: "67",
+        hex: "#33CC99",
     },
     {
-        hex: "33FF33",
+        id: "68",
+        hex: "#33CCCC",
     },
     {
-        hex: "33FF66",
+        id: "69",
+        hex: "#33CCFF",
     },
     {
-        hex: "33FF99",
+        id: "6a",
+        hex: "#33FF00",
     },
     {
-        hex: "33FFCC",
+        id: "6b",
+        hex: "#33FF33",
     },
     {
-        hex: "33FFFF",
+        id: "6c",
+        hex: "#33FF66",
     },
     {
-        hex: "660000",
+        id: "6d",
+        hex: "#33FF99",
     },
     {
-        hex: "660033",
+        id: "6e",
+        hex: "#33FFCC",
     },
     {
-        hex: "660066",
+        id: "6f",
+        hex: "#33FFFF",
     },
     {
-        hex: "660099",
+        id: "70",
+        hex: "#660000",
     },
     {
-        hex: "6600CC",
+        id: "71",
+        hex: "#660033",
     },
     {
-        hex: "6600FF",
+        id: "72",
+        hex: "#660066",
     },
     {
-        hex: "663300",
+        id: "73",
+        hex: "#660099",
     },
     {
-        hex: "663333",
+        id: "74",
+        hex: "#6600CC",
     },
     {
-        hex: "663366",
+        id: "75",
+        hex: "#6600FF",
     },
     {
-        hex: "663399",
+        id: "76",
+        hex: "#663300",
     },
     {
-        hex: "6633CC",
+        id: "77",
+        hex: "#663333",
     },
     {
-        hex: "6633FF",
+        id: "78",
+        hex: "#663366",
     },
     {
-        hex: "666600",
+        id: "79",
+        hex: "#663399",
     },
     {
-        hex: "666633",
+        id: "7a",
+        hex: "#6633CC",
     },
     {
-        hex: "666666",
+        id: "7b",
+        hex: "#6633FF",
     },
     {
-        hex: "666699",
+        id: "7c",
+        hex: "#666600",
     },
     {
-        hex: "6666CC",
+        id: "7d",
+        hex: "#666633",
     },
     {
-        hex: "6666FF",
+        id: "7e",
+        hex: "#666666",
     },
     {
-        hex: "669900",
+        id: "7f",
+        hex: "#666699",
     },
     {
-        hex: "669933",
+        id: "80",
+        hex: "#6666CC",
     },
     {
-        hex: "669966",
+        id: "81",
+        hex: "#6666FF",
     },
     {
-        hex: "669999",
+        id: "82",
+        hex: "#669900",
     },
     {
-        hex: "6699CC",
+        id: "83",
+        hex: "#669933",
     },
     {
-        hex: "6699FF",
+        id: "84",
+        hex: "#669966",
     },
     {
-        hex: "66CC00",
+        id: "85",
+        hex: "#669999",
     },
     {
-        hex: "66CC33",
+        id: "86",
+        hex: "#6699CC",
     },
     {
-        hex: "66CC66",
+        id: "87",
+        hex: "#6699FF",
     },
     {
-        hex: "66CC99",
+        id: "88",
+        hex: "#66CC00",
     },
     {
-        hex: "66CCCC",
+        id: "89",
+        hex: "#66CC33",
     },
     {
-        hex: "66CCFF",
+        id: "8a",
+        hex: "#66CC66",
     },
     {
-        hex: "66FF00",
+        id: "8b",
+        hex: "#66CC99",
     },
     {
-        hex: "66FF33",
+        id: "8c",
+        hex: "#66CCCC",
     },
     {
-        hex: "66FF66",
+        id: "8d",
+        hex: "#66CCFF",
     },
     {
-        hex: "66FF99",
+        id: "8e",
+        hex: "#66FF00",
     },
     {
-        hex: "66FFCC",
+        id: "8f",
+        hex: "#66FF33",
     },
     {
-        hex: "66FFFF",
+        id: "90",
+        hex: "#66FF66",
     },
     {
-        hex: "990000",
+        id: "91",
+        hex: "#66FF99",
     },
     {
-        hex: "990033",
+        id: "92",
+        hex: "#66FFCC",
     },
     {
-        hex: "990066",
+        id: "93",
+        hex: "#66FFFF",
     },
     {
-        hex: "990099",
+        id: "94",
+        hex: "#990000",
     },
     {
-        hex: "9900CC",
+        id: "95",
+        hex: "#990033",
     },
     {
-        hex: "9900FF",
+        id: "96",
+        hex: "#990066",
     },
     {
-        hex: "993300",
+        id: "97",
+        hex: "#990099",
     },
     {
-        hex: "993333",
+        id: "98",
+        hex: "#9900CC",
     },
     {
-        hex: "993366",
+        id: "99",
+        hex: "#9900FF",
     },
     {
-        hex: "993399",
+        id: "9a",
+        hex: "#993300",
     },
     {
-        hex: "9933CC",
+        id: "9b",
+        hex: "#993333",
     },
     {
-        hex: "9933FF",
+        id: "9c",
+        hex: "#993366",
     },
     {
-        hex: "996600",
+        id: "9d",
+        hex: "#993399",
     },
     {
-        hex: "996633",
+        id: "9e",
+        hex: "#9933CC",
     },
     {
-        hex: "996666",
+        id: "9f",
+        hex: "#9933FF",
     },
     {
-        hex: "996699",
+        id: "a0",
+        hex: "#996600",
     },
     {
-        hex: "9966CC",
+        id: "a1",
+        hex: "#996633",
     },
     {
-        hex: "9966FF",
+        id: "a2",
+        hex: "#996666",
     },
     {
-        hex: "999900",
+        id: "a3",
+        hex: "#996699",
     },
     {
-        hex: "999933",
+        id: "a4",
+        hex: "#9966CC",
     },
     {
-        hex: "999966",
+        id: "a5",
+        hex: "#9966FF",
     },
     {
-        hex: "999999",
+        id: "a6",
+        hex: "#999900",
     },
     {
-        hex: "9999CC",
+        id: "a7",
+        hex: "#999933",
     },
     {
-        hex: "9999FF",
+        id: "a8",
+        hex: "#999966",
     },
     {
-        hex: "99CC00",
+        id: "a9",
+        hex: "#999999",
     },
     {
-        hex: "99CC33",
+        id: "aa",
+        hex: "#9999CC",
     },
     {
-        hex: "99CC66",
+        id: "ab",
+        hex: "#9999FF",
     },
     {
-        hex: "99CC99",
+        id: "ac",
+        hex: "#99CC00",
     },
     {
-        hex: "99CCCC",
+        id: "ad",
+        hex: "#99CC33",
     },
     {
-        hex: "99CCFF",
+        id: "ae",
+        hex: "#99CC66",
     },
     {
-        hex: "99FF00",
+        id: "af",
+        hex: "#99CC99",
     },
     {
-        hex: "99FF33",
+        id: "b0",
+        hex: "#99CCCC",
     },
     {
-        hex: "99FF66",
+        id: "b1",
+        hex: "#99CCFF",
     },
     {
-        hex: "99FF99",
+        id: "b2",
+        hex: "#99FF00",
     },
     {
-        hex: "99FFCC",
+        id: "b3",
+        hex: "#99FF33",
     },
     {
-        hex: "99FFFF",
+        id: "b4",
+        hex: "#99FF66",
     },
     {
-        hex: "CC0000",
+        id: "b5",
+        hex: "#99FF99",
     },
     {
-        hex: "CC0033",
+        id: "b6",
+        hex: "#99FFCC",
     },
     {
-        hex: "CC0066",
+        id: "b7",
+        hex: "#99FFFF",
     },
     {
-        hex: "CC0099",
+        id: "b8",
+        hex: "#CC0000",
     },
     {
-        hex: "CC00CC",
+        id: "b9",
+        hex: "#CC0033",
     },
     {
-        hex: "CC00FF",
+        id: "ba",
+        hex: "#CC0066",
     },
     {
-        hex: "CC3300",
+        id: "bb",
+        hex: "#CC0099",
     },
     {
-        hex: "CC3333",
+        id: "bc",
+        hex: "#CC00CC",
     },
     {
-        hex: "CC3366",
+        id: "bd",
+        hex: "#CC00FF",
     },
     {
-        hex: "CC3399",
+        id: "be",
+        hex: "#CC3300",
     },
     {
-        hex: "CC33CC",
+        id: "bf",
+        hex: "#CC3333",
     },
     {
-        hex: "CC33FF",
+        id: "c0",
+        hex: "#CC3366",
     },
     {
-        hex: "CC6600",
+        id: "c1",
+        hex: "#CC3399",
     },
     {
-        hex: "CC6633",
+        id: "c2",
+        hex: "#CC33CC",
     },
     {
-        hex: "CC6666",
+        id: "c3",
+        hex: "#CC33FF",
     },
     {
-        hex: "CC6699",
+        id: "c4",
+        hex: "#CC6600",
     },
     {
-        hex: "CC66CC",
+        id: "c5",
+        hex: "#CC6633",
     },
     {
-        hex: "CC66FF",
+        id: "c6",
+        hex: "#CC6666",
     },
     {
-        hex: "CC9900",
+        id: "c7",
+        hex: "#CC6699",
     },
     {
-        hex: "CC9933",
+        id: "c8",
+        hex: "#CC66CC",
     },
     {
-        hex: "CC9966",
+        id: "c9",
+        hex: "#CC66FF",
     },
     {
-        hex: "CC9999",
+        id: "ca",
+        hex: "#CC9900",
     },
     {
-        hex: "CC99CC",
+        id: "cb",
+        hex: "#CC9933",
     },
     {
-        hex: "CC99FF",
+        id: "cc",
+        hex: "#CC9966",
     },
     {
-        hex: "CCCC00",
+        id: "cd",
+        hex: "#CC9999",
     },
     {
-        hex: "CCCC33",
+        id: "ce",
+        hex: "#CC99CC",
     },
     {
-        hex: "CCCC66",
+        id: "cf",
+        hex: "#CC99FF",
     },
     {
-        hex: "CCCC99",
+        id: "d0",
+        hex: "#CCCC00",
     },
     {
-        hex: "CCCCCC",
+        id: "d1",
+        hex: "#CCCC33",
     },
     {
-        hex: "CCCCFF",
+        id: "d2",
+        hex: "#CCCC66",
     },
     {
-        hex: "CCFF00",
+        id: "d3",
+        hex: "#CCCC99",
     },
     {
-        hex: "CCFF33",
+        id: "d4",
+        hex: "#CCCCCC",
     },
     {
-        hex: "CCFF66",
+        id: "d5",
+        hex: "#CCCCFF",
     },
     {
-        hex: "CCFF99",
+        id: "d6",
+        hex: "#CCFF00",
     },
     {
-        hex: "CCFFCC",
+        id: "d7",
+        hex: "#CCFF33",
     },
     {
-        hex: "CCFFFF",
+        id: "d8",
+        hex: "#CCFF66",
     },
     {
-        hex: "FF0033",
+        id: "d9",
+        hex: "#CCFF99",
     },
     {
-        hex: "FF0066",
+        id: "da",
+        hex: "#CCFFCC",
     },
     {
-        hex: "FF0099",
+        id: "db",
+        hex: "#CCFFFF",
     },
     {
-        hex: "FF00CC",
+        id: "dc",
+        hex: "#FF0000",
     },
     {
-        hex: "FF00FF",
+        id: "dd",
+        hex: "#FF0033",
     },
     {
-        hex: "FF3300",
+        id: "de",
+        hex: "#FF0066",
     },
     {
-        hex: "FF3333",
+        id: "df",
+        hex: "#FF0099",
     },
     {
-        hex: "FF3366",
+        id: "e0",
+        hex: "#FF00CC",
     },
     {
-        hex: "FF3399",
+        id: "e1",
+        hex: "#FF00FF",
     },
     {
-        hex: "FF33CC",
+        id: "e2",
+        hex: "#FF3300",
     },
     {
-        hex: "FF33FF",
+        id: "e3",
+        hex: "#FF3333",
     },
     {
-        hex: "FF6600",
+        id: "e4",
+        hex: "#FF3366",
     },
     {
-        hex: "FF6633",
+        id: "e5",
+        hex: "#FF3399",
     },
     {
-        hex: "FF6666",
+        id: "e6",
+        hex: "#FF33CC",
     },
     {
-        hex: "FF6699",
+        id: "e7",
+        hex: "#FF33FF",
     },
     {
-        hex: "FF66CC",
+        id: "e8",
+        hex: "#FF6600",
     },
     {
-        hex: "FF66FF",
+        id: "e9",
+        hex: "#FF6633",
     },
     {
-        hex: "FF9900",
+        id: "ea",
+        hex: "#FF6666",
     },
     {
-        hex: "FF9933",
+        id: "eb",
+        hex: "#FF6699",
     },
     {
-        hex: "FF9966",
+        id: "ec",
+        hex: "#FF66CC",
     },
     {
-        hex: "FF9999",
+        id: "ed",
+        hex: "#FF66FF",
     },
     {
-        hex: "FF99CC",
+        id: "ee",
+        hex: "#FF9900",
     },
     {
-        hex: "FF99FF",
+        id: "ef",
+        hex: "#FF9933",
     },
     {
-        hex: "FFCC00",
+        id: "f0",
+        hex: "#FF9966",
     },
     {
-        hex: "FFCC33",
+        id: "f1",
+        hex: "#FF9999",
     },
     {
-        hex: "FFCC66",
+        id: "f2",
+        hex: "#FF99CC",
     },
     {
-        hex: "FFCC99",
+        id: "f3",
+        hex: "#FF99FF",
     },
     {
-        hex: "FFCCCC",
+        id: "f4",
+        hex: "#FFCC00",
     },
     {
-        hex: "FFCCFF",
+        id: "f5",
+        hex: "#FFCC33",
     },
     {
-        hex: "FFFF00",
+        id: "f6",
+        hex: "#FFCC66",
     },
     {
-        hex: "FFFF33",
+        id: "f7",
+        hex: "#FFCC99",
     },
     {
-        hex: "FFFF66",
+        id: "f8",
+        hex: "#FFCCCC",
     },
     {
-        hex: "FFFF99",
+        id: "f9",
+        hex: "#FFCCFF",
     },
     {
-        hex: "FFFFCC",
+        id: "fa",
+        hex: "#FFFF00",
     },
     {
-        hex: "B5BA9F",
+        id: "fb",
+        hex: "#FFFF33",
     },
     {
-        hex: "B2591F",
+        id: "fc",
+        hex: "#FFFF66",
     },
     {
-        hex: "6F5E2E",
+        id: "fd",
+        hex: "#FFFF99",
     },
     {
-        hex: "1E2F41",
+        id: "fe",
+        hex: "#FFFFCC",
+    },
+    {
+        id: "ff",
+        hex: "#FFFFFF",
     },
 ];
 
