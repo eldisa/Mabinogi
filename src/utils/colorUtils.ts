@@ -8,23 +8,24 @@ export const getColor = (index: number): string => {
 
 export const generateGradientArray = (
     startColorIndex: number,
-    endColorIndex: number
+    endColorIndex: number,
+    customSteps?: number
 ): string[] => {
     const startColor = colors[startColorIndex].hex;
     const endColor = colors[endColorIndex].hex;
 
     const result: string[] = [];
-    const steps = 15;
+    const steps = Math.max(customSteps || 15, 0);
+
+    const r = parseInt(startColor.substring(0, 2), 16);
+    const g = parseInt(startColor.substring(2, 4), 16);
+    const b = parseInt(startColor.substring(4, 6), 16);
+
+    const endR = parseInt(endColor.substring(0, 2), 16);
+    const endG = parseInt(endColor.substring(2, 4), 16);
+    const endB = parseInt(endColor.substring(4, 6), 16);
 
     for (let i = 0; i <= steps; i++) {
-        const r = parseInt(startColor.substring(0, 2), 16);
-        const g = parseInt(startColor.substring(2, 4), 16);
-        const b = parseInt(startColor.substring(4, 6), 16);
-
-        const endR = parseInt(endColor.substring(0, 2), 16);
-        const endG = parseInt(endColor.substring(2, 4), 16);
-        const endB = parseInt(endColor.substring(4, 6), 16);
-
         const newR = Math.round(r + (endR - r) * (i / steps));
         const newG = Math.round(g + (endG - g) * (i / steps));
         const newB = Math.round(b + (endB - b) * (i / steps));
@@ -42,24 +43,21 @@ export const generateColorArray = (
     color2Index: number
 ) => {
     if (mode === 4 || mode === 5) {
-        const [startColor, endColor] =
+        const [startIndex, endIndex] =
             mode === 4
                 ? [color1Index, color2Index]
                 : [color2Index, color1Index];
 
-        const gradientArray = generateGradientArray(startColor, endColor);
-        const safeEndColor = Math.min(Math.max(0, endColor), colors.length - 1);
+        const gradientArray = generateGradientArray(startIndex, endIndex);
+        const safeEndColor = Math.min(Math.max(0, endIndex), colors.length - 1);
+        const startColorHex = colors[startIndex].hex;
+        const endColorHex = colors[safeEndColor].hex;
+        const result =
+            shift === 0
+                ? [startColorHex, ...gradientArray.slice(1), endColorHex]
+                : [...gradientArray, endColorHex];
 
-        const safeShift = Math.min(
-            Math.max(0, shift),
-            gradientArray.length - 1
-        );
-        const rotated = [
-            ...gradientArray.slice(safeShift),
-            ...gradientArray.slice(0, safeShift),
-        ];
-
-        return [...rotated, colors[safeEndColor].hex];
+        return result;
     }
 
     return [];
