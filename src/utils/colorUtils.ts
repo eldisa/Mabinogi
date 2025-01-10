@@ -42,25 +42,32 @@ export const generateColorArray = (
     color1Index: number,
     color2Index: number
 ) => {
-    if (mode === 4 || mode === 5) {
-        const [startIndex, endIndex] =
-            mode === 4
-                ? [color1Index, color2Index]
-                : [color2Index, color1Index];
+    switch (mode) {
+        case 4:
+        case 5: {
+            const [startIndex, endIndex] =
+                mode === 4
+                    ? [color1Index, color2Index]
+                    : [color2Index, color1Index];
 
-        const gradientArray = generateGradientArray(startIndex, endIndex);
-        const safeEndColor = Math.min(Math.max(0, endIndex), colors.length - 1);
-        const startColorHex = colors[startIndex].hex;
-        const endColorHex = colors[safeEndColor].hex;
-        const result =
-            shift === 0
-                ? [startColorHex, ...gradientArray.slice(1), endColorHex]
-                : [...gradientArray, endColorHex];
+            const gradientArray = generateGradientArray(startIndex, endIndex);
+            const safeEndColor = Math.min(
+                Math.max(0, endIndex),
+                colors.length - 1
+            );
+            const startColorHex = colors[startIndex].hex;
+            const endColorHex = colors[safeEndColor].hex;
+            const result =
+                shift === 0
+                    ? [startColorHex, ...gradientArray.slice(1), endColorHex]
+                    : [...gradientArray, endColorHex];
 
-        return result;
+            return result;
+        }
+        // Add more cases here for additional modes
+        default:
+            return [];
     }
-
-    return [];
 };
 
 export const generateColorCode = (
