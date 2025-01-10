@@ -36,7 +36,7 @@ export const useColorAnimation = ({
     }, [mode, level, color1, color2, setColorCode]);
 
     useEffect(() => {
-        if (mode === 4 || mode === 5) {
+        if (mode === 4 || mode === 5 || mode === 6) {
             currentIndexRef.current = 0;
             const colorArray = generateColorArray(mode, 0, color1, color2);
             if (colorArray.length > 0) {
@@ -54,18 +54,14 @@ export const useColorAnimation = ({
                 setBackground(color2Hex);
                 break;
             case 4:
-            case 5: {
+            case 5:
+            case 6: {
                 const colorArray = generateColorArray(mode, 0, color1, color2);
                 currentIndexRef.current =
                     (currentIndexRef.current + 1) % colorArray.length;
                 setBackground(`#${colorArray[currentIndexRef.current]}`);
                 break;
             }
-            case 6:
-                setBackground((prev) =>
-                    prev === color1Hex ? color2Hex : color1Hex
-                );
-                break;
             case 7:
                 if (Math.random() < 0.5) {
                     setBackground(color2Hex);

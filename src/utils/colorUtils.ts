@@ -64,6 +64,18 @@ export const generateColorArray = (
 
             return result;
         }
+        case 6: {
+            const gradientArray = generateGradientArray(
+                color1Index,
+                color2Index,
+                6
+            );
+            const startColorHex = colors[color1Index].hex;
+            const endColorHex = colors[color2Index].hex;
+            const array = [startColorHex, ...gradientArray, endColorHex];
+            const reverseArray = array.slice().reverse();
+            return [...array, ...reverseArray];
+        }
         // Add more cases here for additional modes
         default:
             return [];
