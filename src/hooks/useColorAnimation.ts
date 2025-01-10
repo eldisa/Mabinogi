@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { getColor, generateColorArray } from "../utils/colorUtils";
+import {
+    getColor,
+    generateColorArray,
+    generateColorCode,
+} from "../utils/colorUtils";
 import { setColorArray } from "../store/colorSlice";
 
 interface AnimationConfig {
@@ -18,6 +22,7 @@ export const useColorAnimation = ({
     color2,
     level,
     setBackground,
+    setColorCode,
 }: AnimationConfig) => {
     const dispatch = useDispatch();
     const animationRef = useRef<number | null>(null);
@@ -82,6 +87,12 @@ export const useColorAnimation = ({
                 return 500 / (level + 1);
         }
     };
+
+    // Generate and update color code whenever relevant props change
+    useEffect(() => {
+        const newColorCode = generateColorCode(mode, level, color1, color2);
+        setColorCode(newColorCode);
+    }, [mode, level, color1, color2, setColorCode]);
 
     useEffect(() => {
         if (mode === 1) setBackground(color1Hex);
