@@ -1,9 +1,7 @@
 import { useEffect, useRef } from "react";
-import {
-    getColor,
-    generateColorArray,
-    generateColorCode,
-} from "../utils/colorUtils";
+import { useDispatch } from "react-redux";
+import { getColor, generateColorArray } from "../utils/colorUtils";
+import { setColorArray } from "../store/colorSlice";
 
 interface AnimationConfig {
     mode: number;
@@ -20,30 +18,14 @@ export const useColorAnimation = ({
     color2,
     level,
     setBackground,
-    setColorCode,
 }: AnimationConfig) => {
+    const dispatch = useDispatch();
     const animationRef = useRef<number | null>(null);
     const lastTimeRef = useRef<number | null>(null);
     const currentIndexRef = useRef(0);
 
     const color1Hex = getColor(color1);
     const color2Hex = getColor(color2);
-
-    // Generate and update color code whenever relevant props change
-    useEffect(() => {
-        const newColorCode = generateColorCode(mode, level, color1, color2);
-        setColorCode(newColorCode);
-    }, [mode, level, color1, color2, setColorCode]);
-
-    useEffect(() => {
-        if (mode === 4 || mode === 5 || mode === 6) {
-            currentIndexRef.current = 0;
-            const colorArray = generateColorArray(mode, 0, color1, color2);
-            if (colorArray.length > 0) {
-                setBackground(`#${colorArray[0]}`);
-            }
-        }
-    }, [mode, color1, color2]);
 
     const handleColorChange = () => {
         switch (mode) {
@@ -57,6 +39,7 @@ export const useColorAnimation = ({
             case 5:
             case 6: {
                 const colorArray = generateColorArray(mode, 0, color1, color2);
+                dispatch(setColorArray(colorArray));
                 currentIndexRef.current =
                     (currentIndexRef.current + 1) % colorArray.length;
                 setBackground(`#${colorArray[currentIndexRef.current]}`);
@@ -83,7 +66,7 @@ export const useColorAnimation = ({
             handleColorChange();
             lastTimeRef.current = time;
         }
-
+        // todo: need to add more cases here for additional modes
         if (mode >= 4) {
             animationRef.current = requestAnimationFrame(animate);
         }

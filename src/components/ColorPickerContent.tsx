@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 import { Stack, FormControlLabel, Checkbox } from "@mui/material";
 import { ColorArrayDisplay } from "./ColorArrayDisplay";
 import ColorPicker from "./ColorPicker";
@@ -23,11 +25,12 @@ interface ColorPickerContentProps {
 export const ColorPickerContent: React.FC<ColorPickerContentProps> = (
     props
 ) => {
-    const [showColorBlock, setShowColorBlock] = useState(true);
+    const { colorArray } = useSelector((state: RootState) => state.color);
+    const [showColorBlock, setShowColorBlock] = React.useState(true);
     const { mode } = props;
-    //const shift = parseInt(props.colorCode.charAt(1)); //get shift from colorCode[1]
     const { FIXED_COLOR_1, FIXED_COLOR_2 } = ANIMATION_MODES;
     const isShinyMode = mode !== FIXED_COLOR_1 && mode !== FIXED_COLOR_2;
+
     return (
         <Stack>
             <Stack
@@ -36,26 +39,8 @@ export const ColorPickerContent: React.FC<ColorPickerContentProps> = (
                 justifyContent="center"
                 alignItems="flex-start"
             >
-                <Preview
-                    mode={props.mode}
-                    color1={props.color1}
-                    color2={props.color2}
-                    level={props.level}
-                    colorCode={props.colorCode}
-                    setColorCode={props.setColorCode}
-                />
-                <ColorPicker
-                    color1={props.color1}
-                    color2={props.color2}
-                    mode={props.mode}
-                    level={props.level}
-                    setColor1={props.setColor1}
-                    setColor2={props.setColor2}
-                    setMode={props.setMode}
-                    setLevel={props.setLevel}
-                    startIndex={0}
-                    setStartIndex={props.setStartIndex}
-                />
+                <Preview {...props} />
+                <ColorPicker {...props} />
             </Stack>
             {isShinyMode && (
                 <Stack>
@@ -70,7 +55,9 @@ export const ColorPickerContent: React.FC<ColorPickerContentProps> = (
                         }
                         label="顯示顏色塊"
                     />
-                    {showColorBlock && <ColorArrayDisplay />}
+                    {showColorBlock && (
+                        <ColorArrayDisplay colorArray={colorArray} />
+                    )}
                 </Stack>
             )}
         </Stack>
