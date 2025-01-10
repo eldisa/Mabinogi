@@ -25,7 +25,7 @@ export const generateGradientArray = (
     const endG = parseInt(endColor.substring(2, 4), 16);
     const endB = parseInt(endColor.substring(4, 6), 16);
 
-    for (let i = 0; i <= steps; i++) {
+    for (let i = 0; i < steps; i++) {
         const newR = Math.round(r + (endR - r) * (i / steps));
         const newG = Math.round(g + (endG - g) * (i / steps));
         const newB = Math.round(b + (endB - b) * (i / steps));
