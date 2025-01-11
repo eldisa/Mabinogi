@@ -51,10 +51,15 @@ export const useColorAnimation = ({
                 break;
             }
             case 7:
-                if (Math.random() < 0.5) {
+            case 9: {
+                const probability = level / 16;
+                if (Math.random() < probability) {
                     setBackground(color2Hex);
                     setTimeout(() => setBackground(color1Hex), 80);
                 }
+                break;
+            }
+            case 8:
                 break;
         }
     };
