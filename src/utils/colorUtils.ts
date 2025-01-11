@@ -44,7 +44,8 @@ export const generateColorArray = (
 ) => {
     switch (mode) {
         case 4:
-        case 5: {
+        case 5:
+        case 8: {
             const [startIndex, endIndex] =
                 mode === 4
                     ? [color1Index, color2Index]

@@ -59,8 +59,15 @@ export const useColorAnimation = ({
                 }
                 break;
             }
-            case 8:
+            case 8: {
+                const colorArray = generateColorArray(mode, 0, color1, color2);
+                dispatch(setColorArray(colorArray));
+                const randomIndex = Math.floor(
+                    Math.random() * colorArray.length
+                );
+                setBackground(`#${colorArray[randomIndex]}`);
                 break;
+            }
         }
     };
 
