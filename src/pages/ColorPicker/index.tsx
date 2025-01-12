@@ -1,21 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Stack, Typography, Container } from "@mui/material";
 import { ColorPickerTabs } from "../../components/ColorPickerTabs";
-
+import { generateColorCode } from "../../utils/colorUtils";
 import { DEFAULTS } from "../../utils/constants";
 import styles from "./index.module.css";
 
 const ColorPickPage: React.FC = () => {
     const [mode, setMode] = useState(DEFAULTS.MODE as number);
+    const [shiftStep, setShiftStep] = useState(DEFAULTS.MODE as number);
     const [color1, setColor1] = useState(DEFAULTS.COLOR_1 as number);
     const [color2, setColor2] = useState(DEFAULTS.COLOR_2 as number);
     const [level, setLevel] = useState(DEFAULTS.LEVEL as number);
     const [startIndex, setStartIndex] = useState(
         DEFAULTS.START_INDEX as number
     );
-    const [colorCode, setColorCode] = useState("");
+    const [colorCode, setColorCode] = useState("10000000");
     const [showColorCards, setShowColorCards] = useState(true);
+
+    useEffect(() => {
+        const newColorCode = generateColorCode(
+            mode,
+            shiftStep,
+            level,
+            startIndex,
+            color1,
+            color2
+        );
+        setColorCode(newColorCode);
+    }, [mode, shiftStep, level, startIndex, color1, color2, setColorCode]);
 
     return (
         <Container maxWidth="lg" className={styles.page}>

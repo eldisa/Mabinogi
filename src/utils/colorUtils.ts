@@ -85,14 +85,18 @@ export const generateColorArray = (
 
 export const generateColorCode = (
     mode: number,
+    shift: number,
     level: number,
+    startIndex: number,
     color1: number,
     color2: number
 ): string => {
-    const modeHex = toHex(mode);
-    const levelHex = toHex(level);
+    const modeHex = toHex(mode, true);
+    const shiftHex = toHex(shift, true);
+    const levelHex = toHex(level, true);
+    const startIndexHex = toHex(startIndex, true);
     const color1Hex = toHex(color1);
     const color2Hex = toHex(color2);
 
-    return `${modeHex}${levelHex}${color1Hex}${color2Hex}`;
+    return `${modeHex}${shiftHex}${levelHex}${startIndexHex}${color1Hex}${color2Hex}`;
 };

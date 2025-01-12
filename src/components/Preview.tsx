@@ -3,29 +3,27 @@ import { Paper, TextField, Stack } from "@mui/material";
 import { useColorAnimation } from "../hooks/useColorAnimation";
 
 interface PreviewProps {
-    mode: number;
-    color1: number;
-    color2: number;
-    level: number;
     colorCode: string;
     setColorCode: (value: string) => void;
 }
 
-const Preview: React.FC<PreviewProps> = ({
-    mode,
-    color1,
-    color2,
-    level,
-    colorCode,
-    setColorCode,
-}) => {
+const Preview: React.FC<PreviewProps> = ({ colorCode, setColorCode }) => {
     const [background, setBackground] = useState(() => "#000000");
+
+    const mode = parseInt(colorCode[0], 10);
+    const shiftStep = parseInt(colorCode[1], 10);
+    const level = parseInt(colorCode[2], 10);
+    const startIndex = parseInt(colorCode[3], 10);
+    const color1 = parseInt(colorCode.slice(4, 6), 16);
+    const color2 = parseInt(colorCode.slice(6, 8), 16);
 
     useColorAnimation({
         mode,
+        shiftStep,
+        level,
+        startIndex,
         color1,
         color2,
-        level,
         setBackground,
         setColorCode,
     });

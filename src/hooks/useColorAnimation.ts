@@ -9,26 +9,29 @@ import { setColorArray } from "../store/colorSlice";
 
 interface AnimationConfig {
     mode: number;
+    shiftStep: number;
+    level: number;
+    startIndex: number;
     color1: number;
     color2: number;
-    level: number;
     setBackground: React.Dispatch<React.SetStateAction<string>>;
     setColorCode: (value: string) => void;
 }
 
 export const useColorAnimation = ({
     mode,
+    shiftStep,
+    level,
+    startIndex = 0,
     color1,
     color2,
-    level,
     setBackground,
     setColorCode,
 }: AnimationConfig) => {
     const dispatch = useDispatch();
     const animationRef = useRef<number | null>(null);
     const lastTimeRef = useRef<number | null>(null);
-    const currentIndexRef = useRef(0);
-
+    const currentIndexRef = useRef(startIndex);
     const color1Hex = getColor(color1);
     const color2Hex = getColor(color2);
 
@@ -46,7 +49,8 @@ export const useColorAnimation = ({
                 const colorArray = generateColorArray(mode, 0, color1, color2);
                 dispatch(setColorArray(colorArray));
                 currentIndexRef.current =
-                    (currentIndexRef.current + 1) % colorArray.length;
+                    (currentIndexRef.current + 1 + shiftStep) %
+                    colorArray.length;
                 setBackground(`#${colorArray[currentIndexRef.current]}`);
                 break;
             }
@@ -102,9 +106,16 @@ export const useColorAnimation = ({
 
     // Generate and update color code whenever relevant props change
     useEffect(() => {
-        const newColorCode = generateColorCode(mode, level, color1, color2);
+        const newColorCode = generateColorCode(
+            mode,
+            shiftStep,
+            level,
+            startIndex,
+            color1,
+            color2
+        );
         setColorCode(newColorCode);
-    }, [mode, level, color1, color2, setColorCode]);
+    }, [mode, shiftStep, level, startIndex, color1, color2, setColorCode]);
 
     useEffect(() => {
         if (mode === 1) setBackground(color1Hex);

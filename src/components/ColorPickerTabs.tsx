@@ -37,10 +37,7 @@ export const ColorPickerTabs: React.FC<ColorPickerTabsProps> = (props) => {
             </Box>
 
             <TabPanel value={tabValue} index={0}>
-                <CustomColorPicker
-                    setColorCode={props.setColorCode}
-                    //showColorCards={props.showColorCards}
-                />
+                <CustomColorPicker />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
                 <ColorPickerContent {...props} />

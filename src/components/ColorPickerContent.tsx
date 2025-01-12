@@ -39,7 +39,10 @@ export const ColorPickerContent: React.FC<ColorPickerContentProps> = (
                 justifyContent="center"
                 alignItems="flex-start"
             >
-                <Preview {...props} />
+                <Preview
+                    colorCode={props.colorCode}
+                    setColorCode={props.setColorCode}
+                />
                 <ColorPicker {...props} />
             </Stack>
             {isShinyMode && (
