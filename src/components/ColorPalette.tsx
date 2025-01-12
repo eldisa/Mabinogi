@@ -10,10 +10,7 @@ export const ColorPalette: React.FC<ColorPaletteProps> = ({
     onColorSelect,
 }) => {
     return (
-        <Paper
-            elevation={0}
-            sx={{ p: 2, maxHeight: "80vh", overflow: "auto", width: "100%" }}
-        >
+        <Paper elevation={0} sx={{ p: 2, width: "100%" }}>
             <Grid container spacing={2}>
                 {colorPalette.map(({ category, colorCodeArray }) => (
                     <Grid item xs={12} key={category}>
@@ -39,17 +36,17 @@ export const ColorPalette: React.FC<ColorPaletteProps> = ({
                                 spacing={0.5}
                                 sx={{
                                     flexGrow: 1,
-                                    overflow: "auto",
-                                    "&::-webkit-scrollbar": {
-                                        height: "8px",
-                                    },
-                                    "&::-webkit-scrollbar-track": {
-                                        background: "#f1f1f1",
-                                    },
-                                    "&::-webkit-scrollbar-thumb": {
-                                        background: "#888",
-                                        borderRadius: "4px",
-                                    },
+                                    overflow: "hide",
+                                    // "&::-webkit-scrollbar": {
+                                    //     height: "8px",
+                                    // },
+                                    // "&::-webkit-scrollbar-track": {
+                                    //     background: "#f1f1f1",
+                                    // },
+                                    // "&::-webkit-scrollbar-thumb": {
+                                    //     background: "#888",
+                                    //     borderRadius: "4px",
+                                    // },
                                 }}
                             >
                                 {colorCodeArray.map((colorCode, index) => (
