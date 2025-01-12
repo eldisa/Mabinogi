@@ -3,7 +3,6 @@ import {
     Stack,
     TextField,
     Button,
-    Box,
     FormControlLabel,
     Checkbox,
 } from "@mui/material";
@@ -17,13 +16,7 @@ interface SavedColor {
     timestamp: number;
 }
 
-interface CustomColorPickerProps {
-    setColorCode: (value: string) => void;
-}
-
-export const CustomColorPicker: React.FC<CustomColorPickerProps> = ({
-    setColorCode,
-}) => {
+export const CustomColorPicker: React.FC = () => {
     const [customColor, setCustomColor] = useState("#000000");
     const [showColorCards, setShowColorCards] = useState(true);
     const [savedColors, setSavedColors] = useState<SavedColor[]>(() => {
@@ -38,17 +31,10 @@ export const CustomColorPicker: React.FC<CustomColorPickerProps> = ({
     const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newColor = event.target.value;
         setCustomColor(newColor);
-        handleApplyColor(newColor);
     };
 
     const handlePaletteColorSelect = (color: string) => {
         setCustomColor(color);
-        handleApplyColor(color);
-    };
-
-    const handleApplyColor = (color: string) => {
-        const hex = color.replace("#", "");
-        setColorCode(`00${hex}`);
     };
 
     const handleSaveColor = () => {
@@ -75,7 +61,7 @@ export const CustomColorPicker: React.FC<CustomColorPickerProps> = ({
                         onChange={(e) => setShowColorCards(e.target.checked)}
                     />
                 }
-                label="显示色卡"
+                label="顯示色卡"
             />
 
             <Stack
@@ -116,11 +102,11 @@ export const CustomColorPicker: React.FC<CustomColorPickerProps> = ({
                 </Stack>
 
                 {showColorCards && (
-                    <Box sx={{ maxWidth: "800px" }}>
+                    <div style={{ overflow: "hidden" }}>
                         <ColorPalette
                             onColorSelect={handlePaletteColorSelect}
                         />
-                    </Box>
+                    </div>
                 )}
             </Stack>
         </Stack>
