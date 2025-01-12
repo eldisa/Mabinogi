@@ -9,11 +9,13 @@ interface ColorPickerProps {
     mode: number;
     level: number;
     startIndex: number;
+    shiftStep: number;
     setColor1: (value: number) => void;
     setColor2: (value: number) => void;
     setMode: (value: number) => void;
     setLevel: (value: number) => void;
     setStartIndex: (value: number) => void;
+    setShiftStep: (value: number) => void;
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = ({
@@ -22,17 +24,33 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
     mode,
     level,
     startIndex,
+    shiftStep,
     setColor1,
     setColor2,
     setMode,
     setLevel,
     setStartIndex,
+    setShiftStep,
 }) => {
     return (
         <Stack spacing={3} width="300px">
             <ColorSelect label="顏色 1" value={color1} onChange={setColor1} />
             <ColorSelect label="顏色 2" value={color2} onChange={setColor2} />
             <ModeSelect value={mode} onChange={setMode} />
+            <div>
+                <Typography gutterBottom>
+                    顏色切換位移量: {shiftStep}
+                </Typography>
+                <Slider
+                    value={shiftStep}
+                    min={0}
+                    max={15}
+                    step={1}
+                    onChange={(_, value) => setShiftStep(value as number)}
+                    marks
+                    sx={{ width: "300px" }}
+                />
+            </div>
             <div>
                 <Typography gutterBottom>閃爍速度: {level}</Typography>
                 <Slider

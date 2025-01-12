@@ -21,6 +21,7 @@ export const DEFAULTS = {
     MODE: ANIMATION_MODES.FIXED_COLOR_2,
     COLOR_1: 0,
     COLOR_2: 1,
+    SHIFT_STEP: 0,
     LEVEL: 0,
     START_INDEX: 0,
 } as const;
