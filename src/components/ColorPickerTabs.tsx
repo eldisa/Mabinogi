@@ -4,26 +4,7 @@ import { TabPanel } from "./TabPanel";
 import { ColorPickerContent } from "./ColorPickerContent";
 import { CustomColorPicker } from "./CustomColorPicker";
 
-interface ColorPickerTabsProps {
-    showColorCards: boolean;
-    onShowColorCardsChange: (show: boolean) => void;
-    color1: number;
-    color2: number;
-    mode: number;
-    level: number;
-    startIndex: number;
-    shiftStep: number;
-    colorCode: string;
-    setColor1: (value: number) => void;
-    setColor2: (value: number) => void;
-    setMode: (value: number) => void;
-    setLevel: (value: number) => void;
-    setStartIndex: (value: number) => void;
-    setShiftStep: (value: number) => void;
-    setColorCode: (value: string) => void;
-}
-
-export const ColorPickerTabs: React.FC<ColorPickerTabsProps> = (props) => {
+export const ColorPickerTabs: React.FC = () => {
     const [tabValue, setTabValue] = React.useState(0);
 
     return (
@@ -42,7 +23,7 @@ export const ColorPickerTabs: React.FC<ColorPickerTabsProps> = (props) => {
                 <CustomColorPicker />
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
-                <ColorPickerContent {...props} />
+                <ColorPickerContent />
             </TabPanel>
         </Box>
     );
