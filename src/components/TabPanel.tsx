@@ -1,25 +1,28 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React from "react";
+import { Box } from "@mui/material";
 
 interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
+    children?: React.ReactNode;
+    index: number;
+    value: number;
 }
 
-export const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`color-picker-tabpanel-${index}`}
-      aria-labelledby={`color-picker-tab-${index}`}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
-    </div>
-  );
+export const TabPanel: React.FC<TabPanelProps> = ({
+    children,
+    value,
+    index,
+    ...other
+}) => {
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`tabpanel-${index}`}
+            aria-labelledby={`tab-${index}`}
+            {...other}
+            style={{ height: "100%", overflow: "auto" }} // Set fixed height and overflow
+        >
+            {value === index && <Box p={3}>{children}</Box>}
+        </div>
+    );
 };

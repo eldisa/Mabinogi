@@ -10,7 +10,7 @@ import { generateColorCode } from "../utils/colorUtils";
 
 export const ColorPickerContent: React.FC = () => {
     const { colorArray } = useSelector((state: RootState) => state.color);
-    const [showColorBlock, setShowColorBlock] = React.useState(true);
+    const [showColorBlock, setShowColorBlock] = React.useState(false);
     const [mode, setMode] = useState(DEFAULTS.MODE as number);
     const [shiftStep, setShiftStep] = useState(DEFAULTS.SHIFT_STEP as number);
     const [color1, setColor1] = useState(DEFAULTS.COLOR_1 as number);

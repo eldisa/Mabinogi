@@ -16,7 +16,7 @@ interface SavedColor {
     timestamp: number;
 }
 
-export const CustomColorPicker: React.FC = () => {
+const CustomColorPicker: React.FC = () => {
     const [customColor, setCustomColor] = useState("#000000");
     const [showColorCards, setShowColorCards] = useState(true);
     const [savedColors, setSavedColors] = useState<SavedColor[]>(() => {
@@ -54,18 +54,9 @@ export const CustomColorPicker: React.FC = () => {
 
     return (
         <Stack spacing={4}>
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={showColorCards}
-                        onChange={(e) => setShowColorCards(e.target.checked)}
-                    />
-                }
-                label="顯示色卡"
-            />
-
             <Stack
-                direction={showColorCards ? "row" : "column"}
+                // direction={showColorCards ? "row" : "column"}
+                direction={"row"}
                 spacing={4}
                 alignItems="flex-start"
             >
@@ -100,15 +91,29 @@ export const CustomColorPicker: React.FC = () => {
                         onDelete={handleDeleteSavedColor}
                     />
                 </Stack>
-
-                {showColorCards && (
-                    <div style={{ overflow: "hidden" }}>
-                        <ColorPalette
-                            onColorSelect={handlePaletteColorSelect}
-                        />
-                    </div>
-                )}
+                <Stack>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={showColorCards}
+                                onChange={(e) =>
+                                    setShowColorCards(e.target.checked)
+                                }
+                            />
+                        }
+                        label="顯示色卡"
+                    />
+                    {showColorCards && (
+                        <div style={{ overflow: "hidden" }}>
+                            <ColorPalette
+                                onColorSelect={handlePaletteColorSelect}
+                            />
+                        </div>
+                    )}
+                </Stack>
             </Stack>
         </Stack>
     );
 };
+
+export default CustomColorPicker;

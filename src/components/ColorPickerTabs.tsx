@@ -2,13 +2,13 @@ import React from "react";
 import { Tabs, Tab, Box } from "@mui/material";
 import { TabPanel } from "./TabPanel";
 import { ColorPickerContent } from "./ColorPickerContent";
-import { CustomColorPicker } from "./CustomColorPicker";
+import CustomColorPicker from "./CustomColorPicker";
 
 export const ColorPickerTabs: React.FC = () => {
     const [tabValue, setTabValue] = React.useState(0);
 
     return (
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", height: "800px" }}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs
                     value={tabValue}
@@ -19,12 +19,14 @@ export const ColorPickerTabs: React.FC = () => {
                 </Tabs>
             </Box>
 
-            <TabPanel value={tabValue} index={0}>
-                <CustomColorPicker />
-            </TabPanel>
-            <TabPanel value={tabValue} index={1}>
-                <ColorPickerContent />
-            </TabPanel>
+            <Box sx={{ height: "calc(100% - 48px)", overflow: "auto" }}>
+                <TabPanel value={tabValue} index={0}>
+                    <CustomColorPicker />
+                </TabPanel>
+                <TabPanel value={tabValue} index={1}>
+                    <ColorPickerContent />
+                </TabPanel>
+            </Box>
         </Box>
     );
 };
